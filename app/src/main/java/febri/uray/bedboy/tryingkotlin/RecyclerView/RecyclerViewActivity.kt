@@ -1,11 +1,11 @@
 package febri.uray.bedboy.tryingkotlin.RecyclerView
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import febri.uray.bedboy.tryingkotlin.R
+import kotlinx.android.synthetic.main.activity_recycler_view.*
 
 class RecyclerViewActivity : AppCompatActivity() {
 
@@ -15,9 +15,8 @@ class RecyclerViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
 
-        val list = findViewById<RecyclerView>(R.id.rec_footballClub)
-        list.layoutManager = LinearLayoutManager(this)
-        list.adapter = RecyclerViewAdapter(this, items) {
+        rec_footballClub.layoutManager = LinearLayoutManager(this)
+        rec_footballClub.adapter = RecyclerViewAdapter(this, items) {
             val toast = Toast.makeText(applicationContext, it.name, Toast.LENGTH_SHORT).show()
         }
 

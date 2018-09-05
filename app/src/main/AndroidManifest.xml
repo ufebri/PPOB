@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RecyclerView.RecyclerViewActivity"></activity>
+        <activity android:name=".Anko.AnkoMainActivity"/>
     </application>
 
 </manifest>

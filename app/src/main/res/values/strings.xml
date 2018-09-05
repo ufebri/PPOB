@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Trying Kotlin</string>
     <string name="sample_recyclerview">Sample RecyclerView</string>
+    <string name="anko_sample">Anko Sample</string>
     <string-array name="clubName">
         <item>Asante Kotoko</item>
         <item>BOCA JUNIORS</item>
