@@ -2,21 +2,4 @@
     <string name="app_name">Trying Kotlin</string>
     <string name="sample_recyclerview">Sample RecyclerView</string>
     <string name="anko_sample">Anko Sample</string>
-    <string-array name="clubName">
-        <item>Asante Kotoko</item>
-        <item>BOCA JUNIORS</item>
-        <item>INTER MILAN</item>
-        <item>BOHEMIANS 1905</item>
-        <item>GANDZASAR KAPAN</item>
-        <item>ORLANDO PIRATES</item>
-    </string-array>
-
-    <array name="imageClub">
-        <item>@drawable/asante_kotoko</item>
-        <item>@drawable/boca_juniors_badge</item>
-        <item>@drawable/inter_badge</item>
-        <item>@drawable/bohemians_badge</item>
-        <item>@drawable/gandzasar</item>
-        <item>@drawable/orlando_pirates</item>
-    </array>
 </resources>
