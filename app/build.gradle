@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 apply from: '../shared_dependencies.gradle'
@@ -46,4 +47,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(":core")
+
+    api platform('com.google.firebase:firebase-bom:32.7.0')
+    api 'com.google.firebase:firebase-analytics'
 }
