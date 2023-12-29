@@ -8,6 +8,9 @@ build/
 
 # Local configuration file (sdk path, etc)
 local.properties
+config.properties
+firebase-distribution-key.json
+fastlane/
 
 # Log/OS Files
 *.log
@@ -31,7 +34,7 @@ render.experimental.xml
 *.keystore
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+app/google-services.json
 
 # Android Profiling
 *.hprof

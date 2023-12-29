@@ -1,0 +1,58 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - "feature/**"
+
+jobs:
+  Continues-Integrations-Jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Create config.properties file
+        run: |
+          echo "APIKEY_DEV=${{ secrets.APIKEY_DEV }}" > $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_DEV_PREPAID=${{ secrets.BASE_URL_DEV_PREPAID }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_PROD_PREPAID=${{ secrets.BASE_URL_PROD_PREPAID }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "APIKEY_PROD=${{ secrets.APIKEY_PROD }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_DEV_POSTPAID=${{ secrets.BASE_URL_DEV_POSTPAID }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_PROD_POSTPAID=${{ secrets.BASE_URL_PROD_POSTPAID }}" >> $GITHUB_WORKSPACE/config.properties
+
+      - name: Clean Test
+        run: ./gradlew clean test
+
+  Continues-Delivery-Jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build QA Flavour APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload QA Flavour APK to Firebase App Tester
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.QA_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+          groups: qa
+          releaseNotes: ${{ github.event.head_commit.message }}
+          file: app/build/outputs/apk/debug/app-debug.apk
