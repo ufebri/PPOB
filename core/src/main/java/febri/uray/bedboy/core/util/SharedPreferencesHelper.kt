@@ -1,4 +1,4 @@
-package febri.uray.bedboy.util.local
+package febri.uray.bedboy.core.util
 
 import android.content.Context
 import android.content.SharedPreferences

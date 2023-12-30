@@ -18,6 +18,10 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Create google-services.json file
+        run: |
+          echo "GOOGLE_SERVICE_JSON=${{ secrets.GOOGLE_SERVICE_JSON }}" > $GITHUB_WORKSPACE/app/google-service.json
+
       - name: Create config.properties file
         run: |
           echo "APIKEY_DEV=${{ secrets.APIKEY_DEV }}" > $GITHUB_WORKSPACE/config.properties
@@ -36,7 +40,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 17
 
       - uses: actions/cache@v2
         with:
@@ -44,6 +48,20 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Create google-services.json file
+        run: |
+          echo "GOOGLE_SERVICE_JSON=${{ secrets.GOOGLE_SERVICE_JSON }}" > $GITHUB_WORKSPACE/app/google-service.json
+
+      - name: Create config.properties file
+        run: |
+          echo "APIKEY_DEV=${{ secrets.APIKEY_DEV }}" > $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_DEV_PREPAID=${{ secrets.BASE_URL_DEV_PREPAID }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_PROD_PREPAID=${{ secrets.BASE_URL_PROD_PREPAID }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "APIKEY_PROD=${{ secrets.APIKEY_PROD }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_DEV_POSTPAID=${{ secrets.BASE_URL_DEV_POSTPAID }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "BASE_URL_PROD_POSTPAID=${{ secrets.BASE_URL_PROD_POSTPAID }}" >> $GITHUB_WORKSPACE/config.properties
+
 
       - name: Build QA Flavour APK
         run: ./gradlew assembleDebug

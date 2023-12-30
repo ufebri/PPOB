@@ -57,5 +57,4 @@ class AppRepository @Inject constructor(
         return Balance(balance = responseData.balance.toString())
     }
 
-
 }

@@ -39,17 +39,20 @@ Tech Stack :
 - Ruby
 - FastLane
 - Firebase Distribute
+- Github Actions
 
 FAQ
 ===
 
-- <details><summary>How to run Fastlane</summary>
+<details><summary>How to run Fastlane</summary>
    > fastlane android NAME_OF_LANE
   </details>
-- <details><summary>Fastlane: the server responded with status 404</summary>
+
+<details><summary>Fastlane: the server responded with status 404</summary>
   Need to accept something on menu Firebase Distribute Menu, yep.. click that get started button.
   </details>
-- <details><summary>Fastlane: Invalid request</summary>    
+
+<details><summary>Fastlane: Invalid request</summary>    
   In my case, i forget to create group of tester.. so maybe you need to create it.
    </details>
 

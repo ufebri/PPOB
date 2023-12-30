@@ -13,14 +13,16 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 import febri.uray.bedboy.core.BuildConfig
 import febri.uray.bedboy.core.data.Resource
 import febri.uray.bedboy.core.security.MD5Helper
+import febri.uray.bedboy.core.util.SharedPreferencesHelper
 import febri.uray.bedboy.ppob.BalanceViewModel
+import febri.uray.bedboy.ppob.R
 import febri.uray.bedboy.ppob.databinding.ContentAuthmodeFragmentBinding
-import febri.uray.bedboy.util.local.SharedPreferencesHelper
 
 @AndroidEntryPoint
 class AuthModeFragment : Fragment() {
@@ -109,11 +111,10 @@ class AuthModeFragment : Fragment() {
                 when (mData) {
                     is Resource.Loading -> showLoadingView(true)
                     is Resource.Success -> if (mData.data != null) {
-                        Toast.makeText(requireActivity(), mData.data?.balance, Toast.LENGTH_LONG)
-                            .show()
                         sharedPreferencesHelper.saveString("username", etUsername.text.toString())
                         sharedPreferencesHelper.saveString("apikey", etServices.text.toString())
                         showLoadingView(false)
+                        findNavController().navigate(R.id.action_authMode_to_home)
                     } else {
                         Toast.makeText(requireActivity(), mData.message, Toast.LENGTH_LONG).show()
                         showLoadingView(false)

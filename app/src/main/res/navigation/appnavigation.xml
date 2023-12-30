@@ -9,6 +9,18 @@
         android:id="@+id/authmodeFragment"
         android:name="febri.uray.bedboy.ppob.presentations.authmode.AuthModeFragment"
         android:label="Auth Mode"
-        tools:layout="@layout/content_authmode_fragment" />
+        tools:layout="@layout/content_authmode_fragment">
+
+        <action
+            android:id="@+id/action_authMode_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="febri.uray.bedboy.ppob.presentations.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/content_home_fragment" />
 
 </navigation>
