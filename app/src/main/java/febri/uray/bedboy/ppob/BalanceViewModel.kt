@@ -8,12 +8,14 @@ import febri.uray.bedboy.core.domain.usecase.AppUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class BalanceViewModel @Inject constructor(useCase: AppUseCase): ViewModel() {
+class BalanceViewModel @Inject constructor(private val useCase: AppUseCase) : ViewModel() {
 
-    private var jsonObject: JsonObject = JsonObject().apply {
-        addProperty("username", "")
-        addProperty("sign", "")
-    }
+//    var jsonObject: JsonObject = JsonObject().apply {
+//        addProperty("username", "")
+//        addProperty("sign", "")
+//    }
 
-    val balance = useCase.getBalance(jsonObject).asLiveData()
+    fun balance(jsonObject: JsonObject) = useCase.getBalance(jsonObject).asLiveData()
+
+    val services = listOf("MobilePulsa")
 }

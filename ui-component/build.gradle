@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+apply from: '../shared_dependencies.gradle'
+
+android {
+    namespace 'febri.uray.bedboy.uicomponent'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 21
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    api "androidx.appcompat:appcompat:$appcompat_version"
+    api "androidx.legacy:legacy-support-v4:$legacy_support_version"
+    api "androidx.constraintlayout:constraintlayout:$constraint_version"
+
+    api "com.google.android.material:material:$material_version"
+    api "com.github.bumptech.glide:glide:$glide_version"
+}
