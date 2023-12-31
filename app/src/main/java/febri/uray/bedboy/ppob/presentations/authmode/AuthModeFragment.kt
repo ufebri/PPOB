@@ -20,7 +20,7 @@ import febri.uray.bedboy.core.BuildConfig
 import febri.uray.bedboy.core.data.Resource
 import febri.uray.bedboy.core.security.MD5Helper
 import febri.uray.bedboy.core.util.SharedPreferencesHelper
-import febri.uray.bedboy.ppob.BalanceViewModel
+import febri.uray.bedboy.ppob.presentations.home.HomeViewModel
 import febri.uray.bedboy.ppob.R
 import febri.uray.bedboy.ppob.databinding.ContentAuthmodeFragmentBinding
 
@@ -29,7 +29,7 @@ class AuthModeFragment : Fragment() {
 
     private var _binding: ContentAuthmodeFragmentBinding? = null
     private val binding get() = _binding
-    private val balanceViewModel: BalanceViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     private var selectedOption: String? = null
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
@@ -106,7 +106,7 @@ class AuthModeFragment : Fragment() {
     }
 
     private fun fetchData(request: JsonObject) {
-        balanceViewModel.balance(request).observe(viewLifecycleOwner) { mData ->
+        homeViewModel.balance(request).observe(viewLifecycleOwner) { mData ->
             binding?.apply {
                 when (mData) {
                     is Resource.Loading -> showLoadingView(true)
@@ -130,7 +130,7 @@ class AuthModeFragment : Fragment() {
     }
 
     private fun showListServices() {
-        balanceViewModel.services.forEach { mValue ->
+        homeViewModel.services.forEach { mValue ->
             mValue.let {
                 val radiobutton = RadioButton(requireActivity())
                 radiobutton.id = it.hashCode()

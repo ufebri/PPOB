@@ -11,6 +11,8 @@ local.properties
 config.properties
 firebase-distribution-key.json
 fastlane/
+*.DS_Store
+/.DS_Store
 
 # Log/OS Files
 *.log

@@ -27,7 +27,9 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        if (sharedPreferencesHelper.getString("username") != null) {
+        if (!sharedPreferencesHelper.getString("username").isNullOrEmpty() &&
+            !sharedPreferencesHelper.getString("apikey").isNullOrEmpty()
+        ) {
             navController.navigate(R.id.homeFragment)
         } else {
             navController.navigate(R.id.authmodeFragment)

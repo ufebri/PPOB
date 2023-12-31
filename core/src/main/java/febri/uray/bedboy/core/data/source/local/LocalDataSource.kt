@@ -1,6 +1,7 @@
 package febri.uray.bedboy.core.data.source.local
 
 import febri.uray.bedboy.core.data.source.local.entity.DefaultEntity
+import febri.uray.bedboy.core.data.source.local.entity.PriceListEntity
 import febri.uray.bedboy.core.data.source.local.room.AppDao
 import kotlinx.coroutines.flow.Flow
 
@@ -13,4 +14,11 @@ class LocalDataSource @Inject constructor(private val appDao: AppDao) {
     fun getLog(): Flow<DefaultEntity> = appDao.getLog()
 
     fun insertLog(defaultEntity: DefaultEntity) = appDao.insertLog(defaultEntity)
+
+    fun insertPriceList(priceListEntity: List<PriceListEntity>) =
+        appDao.insertPriceList(priceListEntity)
+
+    fun getAllPriceList(): Flow<List<PriceListEntity>> = appDao.getAllPriceList()
+
+    fun getListMenu(): Flow<List<PriceListEntity>> = appDao.getListMenu()
 }
