@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PriceList(
+data class ProductList(
     @SerializedName("product_code") var productCode: String,
     @SerializedName("product_description") var productDescription: String? = null,
     @SerializedName("product_nominal") var productNominal: String? = null,

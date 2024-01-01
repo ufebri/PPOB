@@ -73,5 +73,41 @@ class RemoteDataSource @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
+
+
+
+    suspend fun getCheckOperator(prefixPhone: String): Flow<ApiResponse<ResponseData>> {
+        //get data from remote api
+        return flow {
+            try {
+                val mSharedPreferencesHelper = SharedPreferencesHelper(context)
+                val username = mSharedPreferencesHelper.getString("username")
+                val key = mSharedPreferencesHelper.getString("apikey")
+                val sign = MD5Helper.calculateMD5(String.format("%s%sop", username, key))
+                val requestBody = JsonObject().apply {
+                    addProperty("customer_id", prefixPhone)
+                    addProperty("username", username)
+                    addProperty("sign", sign)
+                }
+
+                Log.d(
+                    TAG,
+                    String.format("username : %s \n key : %s \n sign: %s", username, key, sign)
+                )
+
+                val response = apiService.getCheckOperator(requestBody)
+                val dataArray = response.data
+                if (dataArray != null) {
+                    emit(ApiResponse.Success(dataArray))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }
 

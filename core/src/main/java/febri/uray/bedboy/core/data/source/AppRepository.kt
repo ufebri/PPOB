@@ -9,7 +9,7 @@ import febri.uray.bedboy.core.data.source.remote.network.ApiResponse
 import febri.uray.bedboy.core.data.source.remote.response.ResponseData
 import febri.uray.bedboy.core.domain.model.Balance
 import febri.uray.bedboy.core.domain.model.MenuList
-import febri.uray.bedboy.core.domain.model.PriceList
+import febri.uray.bedboy.core.domain.model.ProductList
 import febri.uray.bedboy.core.domain.repository.IAppRepository
 import febri.uray.bedboy.core.util.AppExecutors
 import febri.uray.bedboy.core.util.DataMapper
@@ -60,9 +60,9 @@ class AppRepository @Inject constructor(
         return Balance(balance = responseData.balance.toString())
     }
 
-    override fun getPriceList(): Flow<Resource<List<PriceList>>> =
-        object : NetworkBoundResource<List<PriceList>, ResponseData>() {
-            override fun loadFromDB(): Flow<List<PriceList>> {
+    override fun getPriceList(): Flow<Resource<List<ProductList>>> =
+        object : NetworkBoundResource<List<ProductList>, ResponseData>() {
+            override fun loadFromDB(): Flow<List<ProductList>> {
                 return localDataSource.getAllPriceList().map {
                     DataMapper.mapEntitiesToDomainPriceList(it)
                 }
@@ -76,11 +76,15 @@ class AppRepository @Inject constructor(
                 appExecutors.diskIO().execute { localDataSource.insertPriceList(response) }
             }
 
-            override fun shouldFetch(data: List<PriceList>?): Boolean = data.isNullOrEmpty()
+            override fun shouldFetch(data: List<ProductList>?): Boolean = data.isNullOrEmpty()
         }.asFlow()
 
     override fun getMenuList(): Flow<List<MenuList>> {
         return localDataSource.getListMenu().map { DataMapper.mapEntitiesToDomainMenu(it) }
     }
 
+    override fun getCallPackageList(provider: String): Flow<List<ProductList>> {
+        return localDataSource.getProductList(provider, "bicara")
+            .map { DataMapper.mapEntitiesToDomainPriceList(it) }
+    }
 }

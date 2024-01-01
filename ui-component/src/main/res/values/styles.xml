@@ -27,6 +27,7 @@
 
     <style name="TextInputLayoutDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxStrokeWidth">0dp</item>
+        <item name="boxCollapsedPaddingTop">3dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="hintEnabled">true</item>
     </style>

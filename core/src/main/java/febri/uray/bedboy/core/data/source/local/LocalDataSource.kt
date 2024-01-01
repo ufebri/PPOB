@@ -21,4 +21,7 @@ class LocalDataSource @Inject constructor(private val appDao: AppDao) {
     fun getAllPriceList(): Flow<List<PriceListEntity>> = appDao.getAllPriceList()
 
     fun getListMenu(): Flow<List<PriceListEntity>> = appDao.getListMenu()
+
+    fun getProductList(productDesc: String, productCategory: String): Flow<List<PriceListEntity>> =
+        appDao.getProductList(productDesc, productCategory)
 }

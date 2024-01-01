@@ -3,15 +3,15 @@ package febri.uray.bedboy.core.util
 import febri.uray.bedboy.core.data.source.local.entity.PriceListEntity
 import febri.uray.bedboy.core.data.source.remote.response.ResponseData
 import febri.uray.bedboy.core.domain.model.MenuList
-import febri.uray.bedboy.core.domain.model.PriceList
+import febri.uray.bedboy.core.domain.model.ProductList
 
 object DataMapper {
 
     fun mapEntitiesToDomainMenu(input: List<PriceListEntity>): List<MenuList> =
         input.map { MenuList(idMenu = it.productCategory ?: "", nameMenu = it.productCategory ?: "") }
 
-    fun mapEntitiesToDomainPriceList(input: List<PriceListEntity>): List<PriceList> = input.map {
-        PriceList(
+    fun mapEntitiesToDomainPriceList(input: List<PriceListEntity>): List<ProductList> = input.map {
+        ProductList(
             it.productCode,
             it.productDescription,
             it.productNominal,

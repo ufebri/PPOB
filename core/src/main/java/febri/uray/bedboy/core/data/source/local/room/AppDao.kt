@@ -26,4 +26,7 @@ interface AppDao {
 
     @Query("SELECT * FROM price_list_entity GROUP BY product_category")
     fun getListMenu(): Flow<List<PriceListEntity>>
+
+    @Query("SELECT * FROM price_list_entity WHERE product_description = :productDesc AND product_category = :productCategory")
+    fun getProductList(productDesc: String, productCategory: String): Flow<List<PriceListEntity>>
 }

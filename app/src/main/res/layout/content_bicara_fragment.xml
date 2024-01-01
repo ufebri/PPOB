@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom
+        android:id="@+id/til_operator"
+        style="@style/TextInputLayoutDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimens_16dp"
+        app:endIconMode="dropdown_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/et_provider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_input_white_background_unfocused_shape"
+            android:hint="@string/text_operator"
+            android:inputType="none"
+            android:paddingHorizontal="@dimen/dimens_16dp"
+            tools:text="operator" />
+
+    </febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom>
+
+
+    <febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom
+        android:id="@+id/til_phoneNumber"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimens_16dp"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="@id/til_operator"
+        app:layout_constraintStart_toStartOf="@id/til_operator"
+        app:layout_constraintTop_toBottomOf="@id/til_operator">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_input_white_background_unfocused_shape"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:maxLength="15"
+            tools:text="@tools:sample/us_phones" />
+
+    </febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_denom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimens_16dp"
+        android:overScrollMode="never"
+        app:layout_constraintEnd_toEndOf="@id/til_phoneNumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/til_phoneNumber"
+        app:layout_constraintTop_toBottomOf="@id/til_phoneNumber"
+        tools:itemCount="12"
+        tools:listitem="@layout/item_package_data" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
