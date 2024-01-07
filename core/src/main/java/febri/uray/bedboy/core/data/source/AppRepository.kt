@@ -8,7 +8,6 @@ import febri.uray.bedboy.core.data.source.remote.RemoteDataSource
 import febri.uray.bedboy.core.data.source.remote.network.ApiResponse
 import febri.uray.bedboy.core.data.source.remote.response.ResponseData
 import febri.uray.bedboy.core.domain.model.Balance
-import febri.uray.bedboy.core.domain.model.MenuList
 import febri.uray.bedboy.core.domain.model.ProductList
 import febri.uray.bedboy.core.domain.model.ResultTransaction
 import febri.uray.bedboy.core.domain.repository.IAppRepository
@@ -80,16 +79,21 @@ class AppRepository @Inject constructor(
             override fun shouldFetch(data: List<ProductList>?): Boolean = data.isNullOrEmpty()
         }.asFlow()
 
-    override fun getMenuList(): Flow<List<MenuList>> {
-        return localDataSource.getListMenu().map { DataMapper.mapEntitiesToDomainMenu(it) }
+    override fun getProductListCategory(productCategory: String): Flow<List<String>> {
+        return localDataSource.getProductListCategory(productCategory).map {
+            DataMapper.mapEntitiesToDomainMenu(it)
+        }
     }
 
-    override fun getCallPackageList(provider: String): Flow<List<ProductList>> {
-        return localDataSource.getProductList(provider, "bicara")
+    override fun getProductListDesc(productDesc: String, productCategory: String): Flow<List<ProductList>> {
+        return localDataSource.getProductList(productDesc, productCategory)
             .map { DataMapper.mapEntitiesToDomainPriceList(it) }
     }
 
-    override fun getTopUpResult(productCode: String, customerID: String): Flow<Resource<ResultTransaction>> = flow {
+    override fun getTopUpResult(
+        productCode: String,
+        customerID: String
+    ): Flow<Resource<ResultTransaction>> = flow {
         emit(Resource.Loading())
         remoteDataSource.getTopUp(productCode, customerID).collect { apiResponse ->
             try {

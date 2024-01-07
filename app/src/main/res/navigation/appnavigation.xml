@@ -24,7 +24,7 @@
         tools:layout="@layout/content_home_fragment">
 
         <action
-            android:id="@+id/action_home_to_callPackage"
+            android:id="@+id/action_home_to_prepaidFragment"
             app:destination="@+id/prepaidFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim" />
 
@@ -41,6 +41,14 @@
             android:id="@+id/action_prepaid_to_topup"
             app:destination="@+id/topUpFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim" />
+
+        <argument
+            android:name="list_product"
+            app:argType="string[]" />
+
+        <argument
+            android:name="menu_name"
+            app:argType="string" />
 
     </fragment>
 

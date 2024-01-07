@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import febri.uray.bedboy.core.domain.model.generateMenuList
 import febri.uray.bedboy.core.domain.usecase.AppUseCase
 import javax.inject.Inject
 
@@ -16,5 +17,10 @@ class HomeViewModel @Inject constructor(private val useCase: AppUseCase) : ViewM
 
     val priceList = useCase.getPriceList().asLiveData()
 
-    val menuList = useCase.getMenuList().asLiveData()
+    val menuList = generateMenuList
+
+    val providerList = listOf("XL", "Telkomsel", "Three")
+
+    fun productCategoryList(selectedMenu: String) = useCase.getProductListCategory(selectedMenu).asLiveData()
+
 }

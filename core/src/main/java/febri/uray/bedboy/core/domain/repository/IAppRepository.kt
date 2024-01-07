@@ -15,9 +15,9 @@ interface IAppRepository {
 
     fun getPriceList(): Flow<Resource<List<ProductList>>>
 
-    fun getMenuList(): Flow<List<MenuList>>
+    fun getProductListCategory(productCategory: String): Flow<List<String>>
 
-    fun getCallPackageList(provider: String): Flow<List<ProductList>>
+    fun getProductListDesc(productDesc: String, productCategory: String): Flow<List<ProductList>>
 
     fun getTopUpResult(productCode: String, customerID: String): Flow<Resource<ResultTransaction>>
 }

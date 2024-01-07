@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,7 +17,6 @@ import febri.uray.bedboy.core.domain.model.MenuList
 import febri.uray.bedboy.core.security.MD5Helper
 import febri.uray.bedboy.core.util.SharedPreferencesHelper
 import febri.uray.bedboy.core.util.TextHelper
-import febri.uray.bedboy.ppob.R
 import febri.uray.bedboy.ppob.databinding.ContentHomeFragmentBinding
 
 @AndroidEntryPoint
@@ -85,20 +83,18 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-                homeViewModel.menuList.observe(viewLifecycleOwner) { menu ->
-                    if (menu != null) {
-                        rvMenu.apply {
-                            layoutManager = GridLayoutManager(
-                                requireActivity(),
-                                4,
-                                GridLayoutManager.VERTICAL,
-                                false
-                            )
+                homeViewModel.menuList.let { menu ->
+                    rvMenu.apply {
+                        layoutManager = GridLayoutManager(
+                            requireActivity(),
+                            4,
+                            GridLayoutManager.VERTICAL,
+                            false
+                        )
 
-                            val menuAdapter = MenuAdapter { goToMenu(it) }
-                            adapter = menuAdapter
-                            menuAdapter.submitList(menu)
-                        }
+                        val menuAdapter = MenuAdapter { goToMenu(it) }
+                        adapter = menuAdapter
+                        menuAdapter.submitList(menu)
                     }
                 }
             }
@@ -115,9 +111,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun goToMenu(menuList: MenuList) {
-        when (menuList.idMenu) {
-            "bicara" -> findNavController().navigate(R.id.action_home_to_callPackage)
-            else -> Toast.makeText(requireActivity(), menuList.nameMenu, Toast.LENGTH_LONG).show()
+        homeViewModel.productCategoryList(menuList.idMenu).observe(viewLifecycleOwner) {
+            val action =
+                HomeFragmentDirections.actionHomeToPrepaidFragment(
+                    it.toTypedArray(),
+                    menuList.idMenu
+                )
+            findNavController().navigate(action)
         }
     }
 }

@@ -16,9 +16,9 @@ class AppInteractor @Inject constructor(private var appRepository: IAppRepositor
         appRepository.getCheckBalance(request)
 
     override fun getPriceList(): Flow<Resource<List<ProductList>>> = appRepository.getPriceList()
-    override fun getMenuList(): Flow<List<MenuList>> = appRepository.getMenuList()
-    override fun getCallPackageList(provider: String): Flow<List<ProductList>> =
-        appRepository.getCallPackageList(provider)
+    override fun getProductListCategory(productCategory: String): Flow<List<String>> = appRepository.getProductListCategory(productCategory)
+    override fun getProductListDesc(productDesc: String, productCategory: String): Flow<List<ProductList>> =
+        appRepository.getProductListDesc(productDesc, productCategory)
 
     override fun getTopUpDataResult(
         productCode: String,

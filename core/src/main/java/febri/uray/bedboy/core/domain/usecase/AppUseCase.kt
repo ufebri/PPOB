@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface AppUseCase {
     fun getBalance(request: JsonObject): Flow<Resource<Balance>>
     fun getPriceList(): Flow<Resource<List<ProductList>>>
-    fun getMenuList(): Flow<List<MenuList>>
-    fun getCallPackageList(provider: String): Flow<List<ProductList>>
+    fun getProductListCategory(productCategory: String): Flow<List<String>>
+    fun getProductListDesc(productDesc: String, productCategory: String): Flow<List<ProductList>>
     fun getTopUpDataResult(productCode: String, customerID: String): Flow<Resource<ResultTransaction>>
 }

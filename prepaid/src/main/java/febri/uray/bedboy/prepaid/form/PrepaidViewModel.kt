@@ -9,7 +9,5 @@ import javax.inject.Inject
 @HiltViewModel
 class PrepaidViewModel @Inject constructor(private val useCase: AppUseCase) : ViewModel() {
 
-    val providerList = listOf("XL", "Telkomsel", "Three")
-
-    fun packageList(provider: String) = useCase.getCallPackageList(provider).asLiveData()
+    fun packageList(selectedProduct: String, category: String) = useCase.getProductListDesc(selectedProduct, category).asLiveData()
 }

@@ -12,6 +12,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import febri.uray.bedboy.prepaid.databinding.ContentPrepaidFragmentBinding
@@ -22,6 +23,7 @@ class PrepaidFragment : Fragment() {
     private var _binding: ContentPrepaidFragmentBinding? = null
     private val binding get() = _binding
     private val viewModel: PrepaidViewModel by viewModels()
+    private val args: PrepaidFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -39,17 +41,20 @@ class PrepaidFragment : Fragment() {
         if (activity != null) {
             binding?.apply {
 
+                val mData = args.listProduct
+                val mMenu = args.menuName
+
                 etProduct.setAdapter(
                     ArrayAdapter(
                         requireActivity(),
                         android.R.layout.simple_list_item_1,
-                        viewModel.providerList
+                        mData
                     )
                 )
 
                 etCustomerNumber.doAfterTextChanged { text: Editable? ->
                     if (!text.isNullOrEmpty() && !etProduct.text.isNullOrEmpty()) {
-                        viewModel.packageList(etProduct.text.toString())
+                        viewModel.packageList(etProduct.text.toString(), mMenu)
                             .observe(viewLifecycleOwner) { productLists ->
                                 if (!productLists.isNullOrEmpty()) {
                                     rvDenom.apply {
@@ -71,6 +76,13 @@ class PrepaidFragment : Fragment() {
                             }
                     } else {
                         rvDenom.isGone = true
+                    }
+                }
+
+                etProduct.doAfterTextChanged { text: Editable? ->
+                    if (!text.isNullOrEmpty()) {
+                        rvDenom.isGone = true
+                        etCustomerNumber.setText("")
                     }
                 }
             }
