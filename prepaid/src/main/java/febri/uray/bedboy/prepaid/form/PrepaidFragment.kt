@@ -2,6 +2,7 @@ package febri.uray.bedboy.prepaid.form
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,30 +53,33 @@ class PrepaidFragment : Fragment() {
                     )
                 )
 
-                etCustomerNumber.doAfterTextChanged { text: Editable? ->
-                    if (!text.isNullOrEmpty() && !etProduct.text.isNullOrEmpty()) {
-                        viewModel.packageList(etProduct.text.toString(), mMenu)
-                            .observe(viewLifecycleOwner) { productLists ->
-                                if (!productLists.isNullOrEmpty()) {
-                                    rvDenom.apply {
-                                        val mAdapter = ProductAdapter {
-                                            goToPayment(
-                                                it.productCode,
-                                                etCustomerNumber.text.toString()
-                                            )
-                                        }
-                                        adapter = mAdapter
-                                        layoutManager = LinearLayoutManager(requireActivity())
-                                        mAdapter.submitList(productLists)
+                etCustomerNumber.apply {
+                    inputType = mMenu.inputType
+                    doAfterTextChanged { text: Editable? ->
+                        if (!text.isNullOrEmpty() && !etProduct.text.isNullOrEmpty()) {
+                            viewModel.packageList(etProduct.text.toString(), mMenu.idMenu)
+                                .observe(viewLifecycleOwner) { productLists ->
+                                    if (!productLists.isNullOrEmpty()) {
+                                        rvDenom.apply {
+                                            val mAdapter = ProductAdapter {
+                                                goToPayment(
+                                                    it.productCode,
+                                                    etCustomerNumber.text.toString()
+                                                )
+                                            }
+                                            adapter = mAdapter
+                                            layoutManager = LinearLayoutManager(requireActivity())
+                                            mAdapter.submitList(productLists)
 
-                                        isVisible = true
+                                            isVisible = true
+                                        }
+                                    } else {
+                                        rvDenom.isGone = true
                                     }
-                                } else {
-                                    rvDenom.isGone = true
                                 }
-                            }
-                    } else {
-                        rvDenom.isGone = true
+                        } else {
+                            rvDenom.isGone = true
+                        }
                     }
                 }
 

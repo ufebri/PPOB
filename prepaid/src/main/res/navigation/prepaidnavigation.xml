@@ -22,7 +22,7 @@
 
         <argument
             android:name="menu_name"
-            app:argType="string" />
+            app:argType="febri.uray.bedboy.core.domain.model.MenuList" />
 
     </fragment>
 

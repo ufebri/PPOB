@@ -115,7 +115,7 @@ class HomeFragment : Fragment() {
             val action =
                 HomeFragmentDirections.actionHomeToPrepaidFragment(
                     it.toTypedArray(),
-                    menuList.idMenu
+                    menuList
                 )
             findNavController().navigate(action)
         }
