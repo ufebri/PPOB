@@ -65,7 +65,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <febri.uray.bedboy.uicomponent.InvoiceLayout.ZigzagView
+            <febri.uray.bedboy.uicomponent.invoicelayout.ZigzagView
                 android:id="@+id/zzv_invoice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                     tools:itemCount="20"
                     tools:listitem="@layout/adapter_item_standard_text" />
 
-            </febri.uray.bedboy.uicomponent.InvoiceLayout.ZigzagView>
+            </febri.uray.bedboy.uicomponent.invoicelayout.ZigzagView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

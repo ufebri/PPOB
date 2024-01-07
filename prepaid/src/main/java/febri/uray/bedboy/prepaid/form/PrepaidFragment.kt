@@ -1,4 +1,4 @@
-package febri.uray.bedboy.prepaid
+package febri.uray.bedboy.prepaid.form
 
 import android.os.Bundle
 import android.text.Editable
@@ -85,6 +85,5 @@ class PrepaidFragment : Fragment() {
             customerID = mCustomerNumber
         )
         findNavController().navigate(action)
-        requireActivity().finish()
     }
 }

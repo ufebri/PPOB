@@ -1,4 +1,4 @@
-package febri.uray.bedboy.uicomponent.InvoiceLayout
+package febri.uray.bedboy.uicomponent.invoicelayout
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -65,12 +65,16 @@ class ZigzagView @JvmOverloads constructor(
             zigzagElevation = getDimension(R.styleable.ZigzagView_zigzagElevation, 0.0f)
             zigzagHeight = getDimension(R.styleable.ZigzagView_zigzagHeight, 0.0f)
             zigzagPaddingContent = getDimension(R.styleable.ZigzagView_zigzagPaddingContent, 0.0f)
-            zigzagBackgroundColor = getColor(R.styleable.ZigzagView_zigzagBackgroundColor, zigzagBackgroundColor)
+            zigzagBackgroundColor =
+                getColor(R.styleable.ZigzagView_zigzagBackgroundColor, zigzagBackgroundColor)
             zigzagPadding = getDimension(R.styleable.ZigzagView_zigzagPadding, zigzagElevation)
-            zigzagPaddingLeft = getDimension(R.styleable.ZigzagView_zigzagPaddingLeft, zigzagPadding)
-            zigzagPaddingRight = getDimension(R.styleable.ZigzagView_zigzagPaddingRight, zigzagPadding)
+            zigzagPaddingLeft =
+                getDimension(R.styleable.ZigzagView_zigzagPaddingLeft, zigzagPadding)
+            zigzagPaddingRight =
+                getDimension(R.styleable.ZigzagView_zigzagPaddingRight, zigzagPadding)
             zigzagPaddingTop = getDimension(R.styleable.ZigzagView_zigzagPaddingTop, zigzagPadding)
-            zigzagPaddingBottom = getDimension(R.styleable.ZigzagView_zigzagPaddingBottom, zigzagPadding)
+            zigzagPaddingBottom =
+                getDimension(R.styleable.ZigzagView_zigzagPaddingBottom, zigzagPadding)
             zigzagSides = getInt(R.styleable.ZigzagView_zigzagSides, ZIGZAG_BOTTOM)
             zigzagShadowAlpha = getFloat(R.styleable.ZigzagView_zigzagShadowAlpha, 0.5f)
             recycle()
@@ -94,10 +98,26 @@ class ZigzagView @JvmOverloads constructor(
             rectMain.bottom - zigzagPaddingBottom
         )
         rectContent.set(
-            rectZigzag.left + zigzagPaddingContent + (if (containsSide(zigzagSides, ZIGZAG_LEFT)) zigzagHeight else 0f),
-            rectZigzag.top + zigzagPaddingContent + (if (containsSide(zigzagSides, ZIGZAG_TOP)) zigzagHeight else 0f),
-            rectZigzag.right - zigzagPaddingContent - if (containsSide(zigzagSides, ZIGZAG_RIGHT)) zigzagHeight else 0f,
-            rectZigzag.bottom - zigzagPaddingContent - if (containsSide(zigzagSides, ZIGZAG_BOTTOM)) zigzagHeight else 0f
+            rectZigzag.left + zigzagPaddingContent + (if (containsSide(
+                    zigzagSides,
+                    ZIGZAG_LEFT
+                )
+            ) zigzagHeight else 0f),
+            rectZigzag.top + zigzagPaddingContent + (if (containsSide(
+                    zigzagSides,
+                    ZIGZAG_TOP
+                )
+            ) zigzagHeight else 0f),
+            rectZigzag.right - zigzagPaddingContent - if (containsSide(
+                    zigzagSides,
+                    ZIGZAG_RIGHT
+                )
+            ) zigzagHeight else 0f,
+            rectZigzag.bottom - zigzagPaddingContent - if (containsSide(
+                    zigzagSides,
+                    ZIGZAG_BOTTOM
+                )
+            ) zigzagHeight else 0f
         )
         super.setPadding(
             rectContent.left.toInt(),
@@ -159,7 +179,13 @@ class ZigzagView @JvmOverloads constructor(
         output.destroy()
     }
 
-    private fun drawHorizontalSide(path: Path, left: Float, y: Float, right: Float, isTop: Boolean) {
+    private fun drawHorizontalSide(
+        path: Path,
+        left: Float,
+        y: Float,
+        right: Float,
+        isTop: Boolean
+    ) {
         val h = zigzagHeight
         val seed = 2 * h
         val width = right - left

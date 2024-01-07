@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom
+    <febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom
         android:id="@+id/til_operator"
         style="@style/TextInputLayoutDropdownMenu"
         android:layout_width="match_parent"
@@ -17,19 +17,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/et_provider"
+            android:id="@+id/et_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_input_white_background_unfocused_shape"
-            android:hint="@string/text_operator"
+            android:hint="@string/text_select_product"
             android:inputType="none"
             android:paddingHorizontal="@dimen/dimens_16dp"
             tools:text="operator" />
 
-    </febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom>
+    </febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom>
 
 
-    <febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom
+    <febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom
         android:id="@+id/til_phoneNumber"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
@@ -41,16 +41,16 @@
         app:layout_constraintTop_toBottomOf="@id/til_operator">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_phoneNumber"
+            android:id="@+id/et_customerNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/text_input_white_background_unfocused_shape"
-            android:hint="@string/phone_number"
+            android:hint="@string/customer_number"
             android:inputType="phone"
             android:maxLength="15"
             tools:text="@tools:sample/us_phones" />
 
-    </febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom>
+    </febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_denom"
@@ -63,6 +63,6 @@
         app:layout_constraintStart_toStartOf="@id/til_phoneNumber"
         app:layout_constraintTop_toBottomOf="@id/til_phoneNumber"
         tools:itemCount="12"
-        tools:listitem="@layout/item_package_data" />
+        tools:listitem="@layout/item_product" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

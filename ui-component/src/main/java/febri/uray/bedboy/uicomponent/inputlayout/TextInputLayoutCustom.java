@@ -1,4 +1,4 @@
-package febri.uray.bedboy.uicomponent.InputLayout;
+package febri.uray.bedboy.uicomponent.inputlayout;
 
 import android.content.Context;
 import android.util.AttributeSet;

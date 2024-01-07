@@ -1,4 +1,4 @@
-package febri.uray.bedboy.topup
+package febri.uray.bedboy.prepaid.topup
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import febri.uray.bedboy.core.domain.model.TransactionItem
 import febri.uray.bedboy.core.domain.model.TypeTransaction
-import febri.uray.bedboy.topup.databinding.AdapterItemCenterTextBinding
-import febri.uray.bedboy.topup.databinding.AdapterItemDividerBinding
-import febri.uray.bedboy.topup.databinding.AdapterItemStandardTextBinding
+import febri.uray.bedboy.prepaid.databinding.AdapterItemCenterTextBinding
+import febri.uray.bedboy.prepaid.databinding.AdapterItemDividerBinding
+import febri.uray.bedboy.prepaid.databinding.AdapterItemStandardTextBinding
 
 class TopUpAdapter(private val onClick: (TransactionItem) -> Unit) :
     ListAdapter<TransactionItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
@@ -51,7 +51,7 @@ class TopUpAdapter(private val onClick: (TransactionItem) -> Unit) :
 
             TypeTransaction.DividerType.ordinal -> {
                 val mDividerHolder = holder as ItemDividerViewHolder
-                mDividerHolder.bind(getItem(position))
+                mDividerHolder.bind()
             }
 
             TypeTransaction.StandardTextOnlyTitleBoldType.ordinal -> {

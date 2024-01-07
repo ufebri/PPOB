@@ -1,10 +1,10 @@
-package febri.uray.bedboy.topup
+package febri.uray.bedboy.prepaid.topup
 
 import android.graphics.Typeface
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import febri.uray.bedboy.core.domain.model.TransactionItem
-import febri.uray.bedboy.topup.databinding.AdapterItemStandardTextBinding
+import febri.uray.bedboy.prepaid.databinding.AdapterItemStandardTextBinding
 
 class ItemStandardTextViewHolder(private val binding: AdapterItemStandardTextBinding) :
     RecyclerView.ViewHolder(binding.root) {

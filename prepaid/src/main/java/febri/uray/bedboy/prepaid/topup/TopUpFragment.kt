@@ -1,4 +1,4 @@
-package febri.uray.bedboy.topup
+package febri.uray.bedboy.prepaid.topup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import febri.uray.bedboy.core.data.Resource
 import febri.uray.bedboy.core.domain.model.ResultTransaction
-import febri.uray.bedboy.topup.databinding.ContentTopupFragmentBinding
+import febri.uray.bedboy.prepaid.databinding.ContentTopupFragmentBinding
 
 @AndroidEntryPoint
 class TopUpFragment : Fragment() {
