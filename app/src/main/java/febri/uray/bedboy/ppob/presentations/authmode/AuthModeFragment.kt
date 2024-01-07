@@ -20,9 +20,9 @@ import febri.uray.bedboy.core.BuildConfig
 import febri.uray.bedboy.core.data.Resource
 import febri.uray.bedboy.core.security.MD5Helper
 import febri.uray.bedboy.core.util.SharedPreferencesHelper
-import febri.uray.bedboy.ppob.presentations.home.HomeViewModel
 import febri.uray.bedboy.ppob.R
 import febri.uray.bedboy.ppob.databinding.ContentAuthmodeFragmentBinding
+import febri.uray.bedboy.ppob.presentations.home.HomeViewModel
 
 @AndroidEntryPoint
 class AuthModeFragment : Fragment() {
