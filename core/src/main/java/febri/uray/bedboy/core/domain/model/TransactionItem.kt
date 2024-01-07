@@ -33,11 +33,10 @@ fun generateTransaction(mData: ResponseData): List<TransactionItem> =
         TransactionItem(title = "Nomor Referensi", value = mData.refId, TypeTransaction.StandardTextType),
         TransactionItem(title = null, value = null, TypeTransaction.DividerType),
         TransactionItem(title = "Detail Transaksi", value = null, TypeTransaction.StandardTextOnlyTitleBoldType),
-        TransactionItem(title = "Jenis Transaksi", value = null, TypeTransaction.StandardTextWithBoldValueType),
+        TransactionItem(title = "Jenis Transaksi", value = mData.productCode, TypeTransaction.StandardTextWithBoldValueType),
         TransactionItem(title = "Status Transaksi", value = mData.message, TypeTransaction.StandardTextWithBoldValueType),
         TransactionItem(title = null, value = null, TypeTransaction.DividerType),
         TransactionItem(title = "Nominal Transaksi", value = null, TypeTransaction.StandardTextOnlyTitleBoldType),
         TransactionItem(title = "Nominal Transaksi",value = TextHelper.formatRupiah(mData.price.toString()), TypeTransaction.StandardTextType),
-        TransactionItem(title = "Biaya admin", value = "" ?: "", TypeTransaction.StandardTextType),
         TransactionItem(title = "Total Transaksi", value = TextHelper.formatRupiah(mData.price.toString()), TypeTransaction.StandardTextBoldType)
     )

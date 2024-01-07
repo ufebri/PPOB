@@ -48,10 +48,27 @@ class TopUpAdapter(private val onClick: (TransactionItem) -> Unit) :
                 val mCenterTextHolder = holder as ItemCenterTextViewHolder
                 mCenterTextHolder.bind(getItem(position), onClick)
             }
+
             TypeTransaction.DividerType.ordinal -> {
                 val mDividerHolder = holder as ItemDividerViewHolder
                 mDividerHolder.bind(getItem(position))
             }
+
+            TypeTransaction.StandardTextOnlyTitleBoldType.ordinal -> {
+                val mStandardTextTitleBold = holder as ItemStandardTextViewHolder
+                mStandardTextTitleBold.bindOnlyTitleBold(getItem(position))
+            }
+
+            TypeTransaction.StandardTextWithBoldValueType.ordinal -> {
+                val mStandardTextWithBoldValue = holder as ItemStandardTextViewHolder
+                mStandardTextWithBoldValue.bindOnlyValueBold(getItem(position))
+            }
+
+            TypeTransaction.StandardTextBoldType.ordinal -> {
+                val bothBoldTypeHolder = holder as ItemStandardTextViewHolder
+                bothBoldTypeHolder.bindBothBold(getItem(position))
+            }
+
             else -> {
                 val mStandardHolder = holder as ItemStandardTextViewHolder
                 mStandardHolder.bind(getItem(position), onClick)

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/dimens_16dp"
+    android:layout_marginTop="@dimen/dimens_8dp"
     android:orientation="horizontal">
 
     <TextView
@@ -22,6 +24,6 @@
         android:gravity="end"
         android:maxLines="2"
         android:textAlignment="textEnd"
-        tools:text="20 Januari" />
+        tools:text="20 Januari 2024" />
 
 </LinearLayout>
