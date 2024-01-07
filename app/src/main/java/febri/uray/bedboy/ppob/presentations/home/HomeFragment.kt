@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -60,12 +62,18 @@ class HomeFragment : Fragment() {
             binding?.apply {
                 homeViewModel.balance(request).observe(viewLifecycleOwner) { mData ->
                     when (mData) {
-                        is Resource.Loading -> {}
-                        is Resource.Success -> tvValueBalance.text =
-                            TextHelper.formatRupiah(mData.data?.balance ?: "")
+                        is Resource.Loading -> showBalance(false)
+                        is Resource.Success -> {
+                            tvValueBalance.text =
+                                TextHelper.formatRupiah(mData.data?.balance ?: "")
+                            showBalance(true)
+                        }
 
-                        is Resource.Error -> tvValueBalance.text =
-                            String.format("Something error: %s", mData.message)
+                        is Resource.Error -> {
+                            tvValueBalance.text =
+                                String.format("Something error: %s", mData.message)
+                            showBalance(true)
+                        }
                     }
                 }
 
@@ -93,6 +101,15 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun showBalance(state: Boolean) {
+        binding?.apply {
+            state.let {
+                pbBalance.isGone = state
+                tvValueBalance.isVisible = state
             }
         }
     }

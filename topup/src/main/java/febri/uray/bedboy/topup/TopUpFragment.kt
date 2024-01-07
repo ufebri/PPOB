@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -44,13 +46,13 @@ class TopUpFragment : Fragment() {
                 viewModel.doTopUp(productCode = bundleProductCode, customerID = bundleCustomerID)
                     .observe(viewLifecycleOwner) { mResult ->
                         when (mResult) {
-                            is Resource.Loading -> {}
+                            is Resource.Loading -> showContent(false)
                             is Resource.Success -> {
                                 if (mResult.data != null)
                                     showViewData(mResult.data)
                             }
 
-                            is Resource.Error -> {}
+                            is Resource.Error -> showContent(true)
                         }
                     }
             } else {
@@ -59,6 +61,16 @@ class TopUpFragment : Fragment() {
         }
     }
 
+    private fun showContent(state: Boolean) {
+        binding?.apply {
+            state.let {
+                pbTopup.isGone = it
+                cvStatus.isVisible = it
+                zzvInvoice.isVisible = it
+                cvActionButton.isVisible = it
+            }
+        }
+    }
 
     private fun showViewData(mData: ResultTransaction?) {
         mData?.let {
@@ -72,6 +84,7 @@ class TopUpFragment : Fragment() {
                     adapter = mAdapter
 
                     mAdapter.submitList(it.listTransaction)
+                    showContent(true)
                 }
             }
         }

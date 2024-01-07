@@ -20,7 +20,7 @@ jobs:
 
       - name: Create google-services.json file
         run: |
-          echo "GOOGLE_SERVICE_JSON=${{ secrets.GOOGLE_SERVICE_JSON }}" > app/google-service.json
+          echo "GOOGLE_SERVICE_JSON=${{ secrets.GOOGLE_SERVICE_JSON }}" > /home/runner/work/PPOB/PPOB/app/google-services.json
 
       - name: Create config.properties file
         run: |
@@ -51,7 +51,7 @@ jobs:
 
       - name: Create google-services.json file
         run: |
-          echo "GOOGLE_SERVICE_JSON=${{ secrets.GOOGLE_SERVICE_JSON }}" > app/google-service.json
+          echo "GOOGLE_SERVICE_JSON=${{ secrets.GOOGLE_SERVICE_JSON }}" > /home/runner/work/PPOB/PPOB/app/google-services.json
 
       - name: Create config.properties file
         run: |

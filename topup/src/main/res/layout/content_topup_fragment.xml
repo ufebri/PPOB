@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
+    <ProgressBar
+        android:id="@+id/pb_topup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:cardBackgroundColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimens_16dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/cv_status"
         app:layout_constraintStart_toStartOf="@id/cv_status"
         app:layout_constraintTop_toBottomOf="@id/cv_status"
@@ -70,6 +81,7 @@
         android:id="@+id/cv_action_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:cardElevation="@dimen/dimens_8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
