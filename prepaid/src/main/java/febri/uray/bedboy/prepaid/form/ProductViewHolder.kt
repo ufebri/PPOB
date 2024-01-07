@@ -1,4 +1,4 @@
-package febri.uray.bedboy.ppob.presentations.home.bicara
+package febri.uray.bedboy.prepaid
 
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import febri.uray.bedboy.core.domain.model.ProductList
 import febri.uray.bedboy.core.util.TextHelper
-import febri.uray.bedboy.ppob.databinding.ItemPackageDataBinding
+import febri.uray.bedboy.prepaid.databinding.ItemProductBinding
 
-class PackageViewHolder(private val binding: ItemPackageDataBinding) :
+class ProductViewHolder(private val binding: ItemProductBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(mData: ProductList, onClick: (ProductList) -> Unit) {

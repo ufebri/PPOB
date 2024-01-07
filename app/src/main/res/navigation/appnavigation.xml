@@ -25,19 +25,20 @@
 
         <action
             android:id="@+id/action_home_to_callPackage"
-            app:destination="@+id/callPackage"
+            app:destination="@+id/prepaidFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim" />
 
     </fragment>
 
+
     <fragment
-        android:id="@+id/callPackage"
-        android:name="febri.uray.bedboy.ppob.presentations.home.bicara.BicaraFragment"
-        android:label="Paket Bicara"
-        tools:layout="@layout/content_bicara_fragment">
+        android:id="@+id/prepaidFragment"
+        android:name="febri.uray.bedboy.prepaid.form.PrepaidFragment"
+        android:label="Prepaid"
+        tools:layout="@layout/content_prepaid_fragment">
 
         <action
-            android:id="@+id/action_callpackage_to_topup"
+            android:id="@+id/action_prepaid_to_topup"
             app:destination="@+id/topUpFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim" />
 
@@ -45,7 +46,7 @@
 
     <fragment
         android:id="@+id/topUpFragment"
-        android:name="febri.uray.bedboy.topup.TopUpFragment"
+        android:name="febri.uray.bedboy.prepaid.topup.TopUpFragment"
         android:label="TopUp"
         tools:layout="@layout/content_topup_fragment">
 
@@ -58,5 +59,4 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
-
 </navigation>

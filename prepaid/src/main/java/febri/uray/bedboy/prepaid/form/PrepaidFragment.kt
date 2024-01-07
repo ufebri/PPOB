@@ -1,4 +1,4 @@
-package febri.uray.bedboy.ppob.presentations.home.bicara
+package febri.uray.bedboy.prepaid
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,14 +14,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import febri.uray.bedboy.ppob.databinding.ContentBicaraFragmentBinding
+import febri.uray.bedboy.prepaid.databinding.ContentPrepaidFragmentBinding
 
 @AndroidEntryPoint
-class BicaraFragment : Fragment() {
+class PrepaidFragment : Fragment() {
 
-    private var _binding: ContentBicaraFragmentBinding? = null
+    private var _binding: ContentPrepaidFragmentBinding? = null
     private val binding get() = _binding
-    private val viewModel: BicaraViewModel by viewModels()
+    private val viewModel: PrepaidViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class BicaraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ContentBicaraFragmentBinding.inflate(inflater, container, false)
+        _binding = ContentPrepaidFragmentBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -39,7 +39,7 @@ class BicaraFragment : Fragment() {
         if (activity != null) {
             binding?.apply {
 
-                etProvider.setAdapter(
+                etProduct.setAdapter(
                     ArrayAdapter(
                         requireActivity(),
                         android.R.layout.simple_list_item_1,
@@ -47,16 +47,16 @@ class BicaraFragment : Fragment() {
                     )
                 )
 
-                etPhoneNumber.doAfterTextChanged { text: Editable? ->
-                    if (!text.isNullOrEmpty() && !etProvider.text.isNullOrEmpty()) {
-                        viewModel.packageList(etProvider.text.toString())
+                etCustomerNumber.doAfterTextChanged { text: Editable? ->
+                    if (!text.isNullOrEmpty() && !etProduct.text.isNullOrEmpty()) {
+                        viewModel.packageList(etProduct.text.toString())
                             .observe(viewLifecycleOwner) { productLists ->
                                 if (!productLists.isNullOrEmpty()) {
                                     rvDenom.apply {
-                                        val mAdapter = PackageAdapter {
+                                        val mAdapter = ProductAdapter {
                                             goToPayment(
                                                 it.productCode,
-                                                etPhoneNumber.text.toString()
+                                                etCustomerNumber.text.toString()
                                             )
                                         }
                                         adapter = mAdapter
@@ -79,13 +79,12 @@ class BicaraFragment : Fragment() {
 
 
     private fun goToPayment(mSelectedItemCode: String, mCustomerNumber: String) {
-
-
         // Use the NavController to navigate with arguments
-        val action = BicaraFragmentDirections.actionCallpackageToTopup(
+        val action = PrepaidFragmentDirections.actionPrepaidToTopup(
             prodCode = mSelectedItemCode,
             customerID = mCustomerNumber
         )
         findNavController().navigate(action)
+        requireActivity().finish()
     }
 }

@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_titleAuthMode"
         app:layout_constraintTop_toBottomOf="@id/tv_titleAuthMode" />
 
-    <febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom
+    <febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom
         android:id="@+id/til_services"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
@@ -52,9 +52,9 @@
             android:maxLength="30"
             android:padding="@dimen/dimens_16dp"
             tools:text="@tools:sample/lorem/random" />
-    </febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom>
+    </febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom>
 
-    <febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom
+    <febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom
         android:id="@+id/til_username"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
             android:maxLength="30"
             android:padding="@dimen/dimens_16dp"
             tools:text="@tools:sample/lorem/random" />
-    </febri.uray.bedboy.uicomponent.InputLayout.TextInputLayoutCustom>
+    </febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom>
 
     <ProgressBar
         android:id="@+id/progressbar"

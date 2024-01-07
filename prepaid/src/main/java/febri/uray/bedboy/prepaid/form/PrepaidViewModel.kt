@@ -1,4 +1,4 @@
-package febri.uray.bedboy.ppob.presentations.home.bicara
+package febri.uray.bedboy.prepaid
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -7,7 +7,7 @@ import febri.uray.bedboy.core.domain.usecase.AppUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class BicaraViewModel @Inject constructor(private val useCase: AppUseCase) : ViewModel() {
+class PrepaidViewModel @Inject constructor(private val useCase: AppUseCase) : ViewModel() {
 
     val providerList = listOf("XL", "Telkomsel", "Three")
 

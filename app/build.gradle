@@ -49,7 +49,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(":core")
     implementation project(":ui-component")
-    implementation project(":topup")
+    implementation project(":prepaid")
 
 
     //firebase

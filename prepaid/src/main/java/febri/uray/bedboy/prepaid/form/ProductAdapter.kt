@@ -1,4 +1,4 @@
-package febri.uray.bedboy.ppob.presentations.home.bicara
+package febri.uray.bedboy.prepaid
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import febri.uray.bedboy.core.domain.model.ProductList
-import febri.uray.bedboy.ppob.databinding.ItemPackageDataBinding
+import febri.uray.bedboy.prepaid.databinding.ItemProductBinding
 
-class PackageAdapter(private val onClick: (ProductList) -> Unit) :
+class ProductAdapter(private val onClick: (ProductList) -> Unit) :
     ListAdapter<ProductList, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return PackageViewHolder(
-            ItemPackageDataBinding.inflate(
+        return ProductViewHolder(
+            ItemProductBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -22,7 +22,7 @@ class PackageAdapter(private val onClick: (ProductList) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val mHolder = holder as PackageViewHolder
+        val mHolder = holder as ProductViewHolder
         mHolder.bind(getItem(position), onClick)
     }
 
