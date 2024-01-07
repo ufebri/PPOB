@@ -13,6 +13,9 @@ PPOB Express
     - Glide
     - Material 2
     - [Navigation API](https://developer.android.com/guide/navigation/get-started)
+    - [Lottie](https://lottiefiles.com/blog/working-with-lottie/getting-started-with-lottie-animations-in-android-app)
+    - [ZigZagView](https://github.com/beigirad/ZigzagView)
+    - [Custom TextInputLayout](https://github.com/AndroidLab/InputLayoutInnerHint)
 - Monitor
     - Firebase Distribute
 - Network

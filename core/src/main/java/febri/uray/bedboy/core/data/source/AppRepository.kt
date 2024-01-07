@@ -10,6 +10,7 @@ import febri.uray.bedboy.core.data.source.remote.response.ResponseData
 import febri.uray.bedboy.core.domain.model.Balance
 import febri.uray.bedboy.core.domain.model.MenuList
 import febri.uray.bedboy.core.domain.model.ProductList
+import febri.uray.bedboy.core.domain.model.ResultTransaction
 import febri.uray.bedboy.core.domain.repository.IAppRepository
 import febri.uray.bedboy.core.util.AppExecutors
 import febri.uray.bedboy.core.util.DataMapper
@@ -87,4 +88,30 @@ class AppRepository @Inject constructor(
         return localDataSource.getProductList(provider, "bicara")
             .map { DataMapper.mapEntitiesToDomainPriceList(it) }
     }
+
+    override fun getTopUpResult(productCode: String, customerID: String): Flow<Resource<ResultTransaction>> = flow {
+        emit(Resource.Loading())
+        remoteDataSource.getTopUp(productCode, customerID).collect { apiResponse ->
+            try {
+                when (apiResponse) {
+                    is ApiResponse.Success -> {
+                        emit(Resource.Success(DataMapper.mapResponseToTransactionDomain(apiResponse.data)))
+                    }
+
+                    is ApiResponse.Error -> {
+                        emit(Resource.Error<ResultTransaction>(apiResponse.errorMessage))
+                    }
+
+                    else -> {
+                        emit(Resource.Error<ResultTransaction>("null", null))
+                    }
+                }
+            } catch (e: Exception) {
+                when (apiResponse) {
+                    is ApiResponse.Error -> emit(Resource.Error<ResultTransaction>(apiResponse.errorMessage))
+                    else -> emit(Resource.Error<ResultTransaction>(e.message ?: "Error baru"))
+                }
+            }
+        }
+    }.catch { e -> emit(Resource.Error<ResultTransaction>(e.message ?: "Error Baru")) }
 }

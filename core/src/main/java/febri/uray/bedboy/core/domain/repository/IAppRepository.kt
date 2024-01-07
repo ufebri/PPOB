@@ -5,6 +5,7 @@ import febri.uray.bedboy.core.data.Resource
 import febri.uray.bedboy.core.domain.model.Balance
 import febri.uray.bedboy.core.domain.model.MenuList
 import febri.uray.bedboy.core.domain.model.ProductList
+import febri.uray.bedboy.core.domain.model.ResultTransaction
 import kotlinx.coroutines.flow.Flow
 
 
@@ -17,4 +18,6 @@ interface IAppRepository {
     fun getMenuList(): Flow<List<MenuList>>
 
     fun getCallPackageList(provider: String): Flow<List<ProductList>>
+
+    fun getTopUpResult(productCode: String, customerID: String): Flow<Resource<ResultTransaction>>
 }

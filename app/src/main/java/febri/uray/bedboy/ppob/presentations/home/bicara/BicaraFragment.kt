@@ -11,9 +11,9 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import febri.uray.bedboy.core.domain.model.ProductList
 import febri.uray.bedboy.ppob.databinding.ContentBicaraFragmentBinding
 
 @AndroidEntryPoint
@@ -50,13 +50,18 @@ class BicaraFragment : Fragment() {
                 etPhoneNumber.doAfterTextChanged { text: Editable? ->
                     if (!text.isNullOrEmpty() && !etProvider.text.isNullOrEmpty()) {
                         viewModel.packageList(etProvider.text.toString())
-                            .observe(viewLifecycleOwner) {
-                                if (!it.isNullOrEmpty()) {
+                            .observe(viewLifecycleOwner) { productLists ->
+                                if (!productLists.isNullOrEmpty()) {
                                     rvDenom.apply {
-                                        val mAdapter = PackageAdapter { goToPayment(it) }
+                                        val mAdapter = PackageAdapter {
+                                            goToPayment(
+                                                it.productCode,
+                                                etPhoneNumber.text.toString()
+                                            )
+                                        }
                                         adapter = mAdapter
                                         layoutManager = LinearLayoutManager(requireActivity())
-                                        mAdapter.submitList(it)
+                                        mAdapter.submitList(productLists)
 
                                         isVisible = true
                                     }
@@ -73,7 +78,14 @@ class BicaraFragment : Fragment() {
     }
 
 
-    private fun goToPayment(mDataSelected: ProductList) {
+    private fun goToPayment(mSelectedItemCode: String, mCustomerNumber: String) {
 
+
+        // Use the NavController to navigate with arguments
+        val action = BicaraFragmentDirections.actionCallpackageToTopup(
+            prodCode = mSelectedItemCode,
+            customerID = mCustomerNumber
+        )
+        findNavController().navigate(action)
     }
 }

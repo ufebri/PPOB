@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.random.Random
 
 @Singleton
 class RemoteDataSource @Inject constructor(
@@ -74,40 +75,54 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-
-
-
-    suspend fun getCheckOperator(prefixPhone: String): Flow<ApiResponse<ResponseData>> {
+    suspend fun getTopUp(productCode: String, customerID: String): Flow<ApiResponse<ResponseData>> {
         //get data from remote api
         return flow {
-            try {
-                val mSharedPreferencesHelper = SharedPreferencesHelper(context)
-                val username = mSharedPreferencesHelper.getString("username")
-                val key = mSharedPreferencesHelper.getString("apikey")
-                val sign = MD5Helper.calculateMD5(String.format("%s%sop", username, key))
-                val requestBody = JsonObject().apply {
-                    addProperty("customer_id", prefixPhone)
+            val mSharedPreferencesHelper = SharedPreferencesHelper(context)
+            val username = mSharedPreferencesHelper.getString("username")
+            val key = mSharedPreferencesHelper.getString("apikey")
+            val refID = String.format("order%s", 10000000 + Random.nextInt(90000000))
+            val sign = MD5Helper.calculateMD5(String.format("%s%s%s", username, key, refID))
+
+            val requestBodyTopup = JsonObject().apply {
+                addProperty("ref_id", refID)
+                addProperty("product_code", productCode)
+                addProperty("customer_id", customerID)
+                addProperty("username", username)
+                addProperty("sign", sign)
+            }
+
+            Log.d(
+                TAG,
+                String.format("username : %s \n key : %s \n sign: %s", username, key, sign)
+            )
+
+
+            var response = apiService.getTopUp(requestBodyTopup)
+
+            //Doing Auto Check Status if the status on process
+            if (response.data?.status.equals("0")) {
+                val requestBodyCheckStatus = JsonObject().apply {
+                    addProperty("ref_id", refID)
                     addProperty("username", username)
                     addProperty("sign", sign)
                 }
 
-                Log.d(
-                    TAG,
-                    String.format("username : %s \n key : %s \n sign: %s", username, key, sign)
-                )
+                response = apiService.getCheckStatus(requestBodyCheckStatus)
+            }
 
-                val response = apiService.getCheckOperator(requestBody)
-                val dataArray = response.data
+            val dataArray = response.data
+            try {
                 if (dataArray != null) {
                     emit(ApiResponse.Success(dataArray))
                 } else {
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
+                emit(ApiResponse.Error(dataArray?.message ?: e.toString()))
                 Log.e("RemoteDataSource", e.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }
     }
 }
 

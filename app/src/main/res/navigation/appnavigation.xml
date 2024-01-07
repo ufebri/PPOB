@@ -36,7 +36,27 @@
         android:label="Paket Bicara"
         tools:layout="@layout/content_bicara_fragment">
 
+        <action
+            android:id="@+id/action_callpackage_to_topup"
+            app:destination="@+id/topUpFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/topUpFragment"
+        android:name="febri.uray.bedboy.topup.TopUpFragment"
+        android:label="TopUp"
+        tools:layout="@layout/content_topup_fragment">
+
+        <argument
+            android:name="prodCode"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="customerID"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

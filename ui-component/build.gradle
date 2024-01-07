@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 apply from: '../shared_dependencies.gradle'
@@ -39,4 +40,10 @@ dependencies {
 
     api "com.google.android.material:material:$material_version"
     api "com.github.bumptech.glide:glide:$glide_version"
+
+    api 'com.airbnb.android:lottie:6.3.0'
+
+    //navigation
+    api "androidx.navigation:navigation-fragment-ktx:2.7.6"
+    api "androidx.navigation:navigation-ui-ktx:2.7.6"
 }

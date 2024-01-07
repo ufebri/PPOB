@@ -13,6 +13,9 @@ interface ApiService {
     @POST("/api/pricelist")
     suspend fun getPriceList(@Body requestBody: JsonObject): ResponseList
 
-    @POST("/api/check-operator")
-    suspend fun getCheckOperator(@Body requestBody: JsonObject): ResponseList
+    @POST("/api/top-up")
+    suspend fun getTopUp(@Body requestBody: JsonObject): ResponseList
+
+    @POST("/api/check-status")
+    suspend fun getCheckStatus(@Body requestBody: JsonObject): ResponseList
 }

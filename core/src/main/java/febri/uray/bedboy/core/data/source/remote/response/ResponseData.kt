@@ -14,5 +14,13 @@ data class ResponseData(
     //This is general message
     @SerializedName("message") var message: String? = null,
     @SerializedName("rc") var rc: String? = null,
-    @SerializedName("status") var status: String? = null
+    @SerializedName("status") var status: String? = null,
+
+    //This is for topup
+    @SerializedName("ref_id") var refId: String? = null,
+    @SerializedName("product_code") var productCode: String? = null,
+    @SerializedName("customer_id") var customerId: String? = null,
+    @SerializedName("price") var price: Int? = null,
+    @SerializedName("tr_id") var trId: Int? = null,
+    @SerializedName("sn") var sn: String? = null
 )

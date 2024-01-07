@@ -49,6 +49,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(":core")
     implementation project(":ui-component")
+    implementation project(":topup")
 
 
     //firebase
@@ -57,9 +58,5 @@ dependencies {
 
     //splashscreen
     implementation "androidx.core:core-splashscreen:1.0.0"
-
-    //navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.7.6"
-    implementation "androidx.navigation:navigation-ui-ktx:2.7.6"
 
 }

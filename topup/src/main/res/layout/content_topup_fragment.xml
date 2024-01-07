@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimens_16dp"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimens_16dp"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                tools:text="Transaksi Sukses" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <febri.uray.bedboy.uicomponent.InvoiceLayout.ZigzagView
+        android:id="@+id/zzv_invoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimens_16dp"
+        app:layout_constraintEnd_toEndOf="@id/cv_status"
+        app:layout_constraintStart_toStartOf="@id/cv_status"
+        app:layout_constraintTop_toBottomOf="@id/cv_status"
+        app:zigzagBackgroundColor="@android:color/white"
+        app:zigzagElevation="@dimen/dimens_8dp"
+        app:zigzagHeight="10dp"
+        app:zigzagPaddingContent="16dp"
+        app:zigzagShadowAlpha="0.9"
+        app:zigzagSides="top|bottom">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            tools:itemCount="20" />
+
+    </febri.uray.bedboy.uicomponent.InvoiceLayout.ZigzagView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_action_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/dimens_8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimens_16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_share"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimens_8dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:drawableStart="@drawable/baseline_share_24"
+                android:paddingHorizontal="@dimen/dimens_52dp"
+                android:text="@string/text_share"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btn_print"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dimens_8dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:drawableStart="@drawable/baseline_receipt_24"
+                android:paddingHorizontal="@dimen/dimens_52dp"
+                android:text="@string/text_print"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
