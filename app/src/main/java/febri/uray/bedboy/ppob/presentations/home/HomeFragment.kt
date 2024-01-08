@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.chip.Chip
 import com.google.gson.JsonObject
 import dagger.hilt.android.AndroidEntryPoint
 import febri.uray.bedboy.core.data.Resource
@@ -18,6 +19,7 @@ import febri.uray.bedboy.core.security.MD5Helper
 import febri.uray.bedboy.core.util.SharedPreferencesHelper
 import febri.uray.bedboy.core.util.TextHelper
 import febri.uray.bedboy.ppob.databinding.ContentHomeFragmentBinding
+import febri.uray.bedboy.uicomponent.chiplayout.addChip
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -83,19 +85,35 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-                homeViewModel.menuList.let { menu ->
-                    rvMenu.apply {
-                        layoutManager = GridLayoutManager(
-                            requireActivity(),
-                            4,
-                            GridLayoutManager.VERTICAL,
-                            false
-                        )
+                homeViewModel.categoryMenus.forEach {
+                    chipMenu.addChip(requireActivity(), it, true)
+                }
 
-                        val menuAdapter = MenuAdapter { goToMenu(it) }
-                        adapter = menuAdapter
-                        menuAdapter.submitList(menu)
-                    }
+                chipMenu.setOnCheckedChangeListener { group, checkedId ->
+                    val mView = group?.findViewById<Chip>(checkedId)
+                    val mTitle = mView?.text.toString()
+                    mView?.setOnClickListener { showMenu(mTitle) }
+                }
+
+                showMenu(homeViewModel.categoryMenus[0])
+            }
+        }
+    }
+
+    private fun showMenu(menuName: String) {
+        binding?.apply {
+            homeViewModel.menuList(menuName).let { menu ->
+                rvMenu.apply {
+                    layoutManager = GridLayoutManager(
+                        requireActivity(),
+                        4,
+                        GridLayoutManager.VERTICAL,
+                        false
+                    )
+
+                    val menuAdapter = MenuAdapter { goToMenu(it) }
+                    adapter = menuAdapter
+                    menuAdapter.submitList(menu)
                 }
             }
         }
