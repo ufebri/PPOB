@@ -35,7 +35,7 @@ class AppRepository @Inject constructor(
             try {
                 when (apiResponse) {
                     is ApiResponse.Success -> {
-                        emit(Resource.Success(mapToBalance(apiResponse.data)))
+                        emit(Resource.Success(Balance(balance = apiResponse.data.balance.toString())))
                     }
 
                     is ApiResponse.Error -> {
@@ -54,11 +54,6 @@ class AppRepository @Inject constructor(
             }
         }
     }.catch { e -> emit(Resource.Error<Balance>(e.message ?: "Error Baru")) }
-
-    private fun mapToBalance(responseData: ResponseData): Balance {
-        // Implement your mapping logic from ResponseData to Balance
-        return Balance(balance = responseData.balance.toString())
-    }
 
     override fun getPriceList(): Flow<Resource<List<ProductList>>> =
         object : NetworkBoundResource<List<ProductList>, ResponseData>() {
@@ -85,7 +80,10 @@ class AppRepository @Inject constructor(
         }
     }
 
-    override fun getProductListDesc(productDesc: String, productCategory: String): Flow<List<ProductList>> {
+    override fun getProductListDesc(
+        productDesc: String,
+        productCategory: String
+    ): Flow<List<ProductList>> {
         return localDataSource.getProductList(productDesc, productCategory)
             .map { DataMapper.mapEntitiesToDomainPriceList(it) }
     }
