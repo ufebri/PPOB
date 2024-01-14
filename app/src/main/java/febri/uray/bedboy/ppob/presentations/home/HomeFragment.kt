@@ -92,7 +92,9 @@ class HomeFragment : Fragment() {
                 chipMenu.setOnCheckedChangeListener { group, checkedId ->
                     val mView = group?.findViewById<Chip>(checkedId)
                     val mTitle = mView?.text.toString()
-                    mView?.setOnClickListener { showMenu(mTitle) }
+                    mView?.setOnClickListener {
+                        showMenu(mTitle)
+                    }
                 }
 
                 showMenu(homeViewModel.categoryMenus[0])
@@ -115,6 +117,7 @@ class HomeFragment : Fragment() {
                     adapter = menuAdapter
                     menuAdapter.submitList(menu)
                 }
+                tvSelectedTitle.text = menuName
             }
         }
     }

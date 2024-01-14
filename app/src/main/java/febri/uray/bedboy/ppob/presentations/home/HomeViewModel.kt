@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.google.gson.JsonObject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import febri.uray.bedboy.core.domain.model.categoryMenuList
-import febri.uray.bedboy.core.domain.model.generateMenuList
 import febri.uray.bedboy.core.domain.usecase.AppUseCase
+import febri.uray.bedboy.core.util.MenuMapper.categoryMenuList
+import febri.uray.bedboy.core.util.MenuMapper.generateMenuList
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,7 +18,8 @@ class HomeViewModel @Inject constructor(private val useCase: AppUseCase) : ViewM
 
     val priceList = useCase.getPriceList().asLiveData()
 
-    fun menuList(categoryMenu: String) = generateMenuList.filter { it.categoryMenu == categoryMenu }
+    fun menuList(categoryMenu: String) =
+        generateMenuList.filter { it.categoryMenu == categoryMenu }.ifEmpty { generateMenuList }
 
     val categoryMenus = categoryMenuList
 
