@@ -5,7 +5,8 @@ import android.util.Log
 import com.google.gson.JsonObject
 import dagger.hilt.android.qualifiers.ApplicationContext
 import febri.uray.bedboy.core.data.source.remote.network.ApiResponse
-import febri.uray.bedboy.core.data.source.remote.network.ApiService
+import febri.uray.bedboy.core.data.source.remote.network.ApiServicePostpaid
+import febri.uray.bedboy.core.data.source.remote.network.ApiServicePrepaid
 import febri.uray.bedboy.core.data.source.remote.response.ResponseData
 import febri.uray.bedboy.core.security.MD5Helper
 import febri.uray.bedboy.core.util.SharedPreferencesHelper
@@ -19,15 +20,17 @@ import kotlin.random.Random
 
 @Singleton
 class RemoteDataSource @Inject constructor(
-    private val apiService: ApiService,
+    private val apiServicePrepaid: ApiServicePrepaid,
+    private val apiServicePostpaid: ApiServicePostpaid,
     @ApplicationContext private val context: Context
 ) {
     val TAG = "RemoteDataSource"
 
+    /* Prepaid */
     suspend fun getCheckBalance(requestBody: JsonObject): Flow<ApiResponse<ResponseData>> {
         //get data from remote api
         return flow {
-            val response = apiService.getCheckBalance(requestBody)
+            val response = apiServicePrepaid.getCheckBalance(requestBody)
             val dataArray = response.data
             try {
                 if (dataArray != null) {
@@ -42,7 +45,7 @@ class RemoteDataSource @Inject constructor(
         }
     }
 
-    suspend fun getPriceList(): Flow<ApiResponse<ResponseData>> {
+    suspend fun getPriceListPrepaid(): Flow<ApiResponse<ResponseData>> {
         //get data from remote api
         return flow {
             try {
@@ -61,7 +64,7 @@ class RemoteDataSource @Inject constructor(
                     String.format("username : %s \n key : %s \n sign: %s", username, key, sign)
                 )
 
-                val response = apiService.getPriceList(requestBody)
+                val response = apiServicePrepaid.getPriceListPrepaid(requestBody)
                 val dataArray = response.data
                 if (dataArray != null) {
                     emit(ApiResponse.Success(dataArray))
@@ -98,7 +101,7 @@ class RemoteDataSource @Inject constructor(
             )
 
 
-            var response = apiService.getTopUp(requestBodyTopup)
+            var response = apiServicePrepaid.getTopUp(requestBodyTopup)
 
             //Doing Auto Check Status if the status on process
             if (response.data?.status.equals("0")) {
@@ -108,7 +111,7 @@ class RemoteDataSource @Inject constructor(
                     addProperty("sign", sign)
                 }
 
-                response = apiService.getCheckStatus(requestBodyCheckStatus)
+                response = apiServicePrepaid.getCheckStatus(requestBodyCheckStatus)
             }
 
             val dataArray = response.data
@@ -123,6 +126,41 @@ class RemoteDataSource @Inject constructor(
                 Log.e("RemoteDataSource", e.toString())
             }
         }
+    }
+
+    /* Postpaid */
+    suspend fun getPriceListPostpaid(): Flow<ApiResponse<ResponseData>> {
+        return flow<ApiResponse<ResponseData>> {
+            try {
+                val mSharedPreferencesHelper = SharedPreferencesHelper(context)
+                val username = mSharedPreferencesHelper.getString("username")
+                val key = mSharedPreferencesHelper.getString("apikey")
+                val sign = MD5Helper.calculateMD5(String.format("%s%spl", username, key))
+                val requestBody = JsonObject().apply {
+                    addProperty("commands", "pricelist-pasca")
+                    addProperty("status", "active")
+                    addProperty("username", username)
+                    addProperty("sign", sign)
+                }
+
+                Log.d(
+                    TAG,
+                    String.format("username : %s \n key : %s \n sign: %s", username, key, sign)
+                )
+
+                val response = apiServicePostpaid.getPriceListPostPaid(requestBody)
+                val dataArray = response.data
+                if (dataArray != null) {
+                    emit(ApiResponse.Success(dataArray))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e(TAG, e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
     }
 }
 

@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "APIKEY", apikeyProperties['APIKEY_PROD'])
             buildConfigField("String", "BASEURL_PREPAID", apikeyProperties['BASE_URL_PROD_PREPAID'])

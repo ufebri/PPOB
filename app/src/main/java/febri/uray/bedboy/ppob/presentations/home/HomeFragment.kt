@@ -92,6 +92,14 @@ class HomeFragment : Fragment() {
                     }
                 }
 
+                homeViewModel.postpaidProductList.observe(viewLifecycleOwner) { mData ->
+                    when (mData) {
+                        is Resource.Loading -> {}
+                        is Resource.Success -> {}
+                        is Resource.Error -> {}
+                    }
+                }
+
                 homeViewModel.categoryMenus.forEach {
                     chipMenu.addChip(requireActivity(), it, true)
                 }

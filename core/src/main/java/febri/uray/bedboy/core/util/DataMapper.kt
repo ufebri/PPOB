@@ -1,7 +1,9 @@
 package febri.uray.bedboy.core.util
 
+import febri.uray.bedboy.core.data.source.local.entity.PostpaidProductEntity
 import febri.uray.bedboy.core.data.source.local.entity.PriceListEntity
 import febri.uray.bedboy.core.data.source.remote.response.ResponseData
+import febri.uray.bedboy.core.domain.model.PostpaidProduct
 import febri.uray.bedboy.core.domain.model.ProductList
 import febri.uray.bedboy.core.domain.model.ResultTransaction
 import febri.uray.bedboy.core.domain.model.TransactionItem
@@ -10,17 +12,15 @@ import febri.uray.bedboy.core.domain.model.generateTransaction
 
 object DataMapper {
 
-    fun mapResponseToTransactionDomain(input: ResponseData): ResultTransaction =
-        input.let {
-            ResultTransaction(
-                statusTransaction = TransactionItem(
-                    title = it.message,
-                    value = RCHelper.getAnimationStatus(it.rc),
-                    TypeTransaction.StatusType
-                ),
-                generateTransaction(it)
-            )
-        }
+    fun mapResponseToTransactionDomain(input: ResponseData): ResultTransaction = input.let {
+        ResultTransaction(
+            statusTransaction = TransactionItem(
+                title = it.message,
+                value = RCHelper.getAnimationStatus(it.rc),
+                TypeTransaction.StatusType
+            ), generateTransaction(it)
+        )
+    }
 
     fun mapEntitiesToDomainMenu(input: List<PriceListEntity>): List<String> =
         input.map { it.productDescription ?: "" }
@@ -59,4 +59,28 @@ object DataMapper {
         }
         return mListEntity
     }
+
+    fun mapResponseToEntitiesPostpaidList(input: ResponseData): List<PostpaidProductEntity> {
+        val mList = ArrayList<PostpaidProductEntity>()
+        input.pascaList.map {
+            val productEntity = PostpaidProductEntity(
+                it.code, it.name, it.status, it.fee, it.komisi, it.type, it.category
+            )
+            mList.add(productEntity)
+        }
+        return mList
+    }
+
+    fun mapEntitiesToDomainPostpaidList(input: List<PostpaidProductEntity>): List<PostpaidProduct> =
+        input.map {
+            PostpaidProduct(
+                it.code,
+                it.name,
+                it.status,
+                it.fee,
+                it.komisi,
+                it.type,
+                it.category
+            )
+        }
 }

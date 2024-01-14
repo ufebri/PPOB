@@ -26,4 +26,6 @@ class HomeViewModel @Inject constructor(private val useCase: AppUseCase) : ViewM
     fun productCategoryList(selectedMenu: String) =
         useCase.getProductListCategory(selectedMenu).asLiveData()
 
+    val postpaidProductList = useCase.getProductListPostpaid().asLiveData()
+
 }

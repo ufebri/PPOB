@@ -5,13 +5,14 @@ import febri.uray.bedboy.core.data.source.remote.response.ResponseList
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface ApiService {
+interface ApiServicePrepaid {
 
+    /* Prepaid */
     @POST("/api/check-balance")
     suspend fun getCheckBalance(@Body requestBody: JsonObject): ResponseList
 
     @POST("/api/pricelist")
-    suspend fun getPriceList(@Body requestBody: JsonObject): ResponseList
+    suspend fun getPriceListPrepaid(@Body requestBody: JsonObject): ResponseList
 
     @POST("/api/top-up")
     suspend fun getTopUp(@Body requestBody: JsonObject): ResponseList

@@ -8,6 +8,7 @@ import febri.uray.bedboy.core.data.source.remote.RemoteDataSource
 import febri.uray.bedboy.core.data.source.remote.network.ApiResponse
 import febri.uray.bedboy.core.data.source.remote.response.ResponseData
 import febri.uray.bedboy.core.domain.model.Balance
+import febri.uray.bedboy.core.domain.model.PostpaidProduct
 import febri.uray.bedboy.core.domain.model.ProductList
 import febri.uray.bedboy.core.domain.model.ResultTransaction
 import febri.uray.bedboy.core.domain.repository.IAppRepository
@@ -64,7 +65,7 @@ class AppRepository @Inject constructor(
             }
 
             override suspend fun createCall(): Flow<ApiResponse<ResponseData>> =
-                remoteDataSource.getPriceList()
+                remoteDataSource.getPriceListPrepaid()
 
             override suspend fun saveCallResult(data: ResponseData) {
                 val response = DataMapper.mapResponseToEntitiesPriceList(data)
@@ -116,4 +117,22 @@ class AppRepository @Inject constructor(
             }
         }
     }.catch { e -> emit(Resource.Error<ResultTransaction>(e.message ?: "Error Baru")) }
+
+    override fun getProductListPostpaid(): Flow<Resource<List<PostpaidProduct>>> =
+        object : NetworkBoundResource<List<PostpaidProduct>, ResponseData>() {
+            override fun loadFromDB(): Flow<List<PostpaidProduct>> =
+                localDataSource.getAllProductListPostpaid()
+                    .map { DataMapper.mapEntitiesToDomainPostpaidList(it) }
+
+            override suspend fun createCall(): Flow<ApiResponse<ResponseData>> =
+                remoteDataSource.getPriceListPostpaid()
+
+            override suspend fun saveCallResult(data: ResponseData) {
+                val response = DataMapper.mapResponseToEntitiesPostpaidList(data)
+                appExecutors.diskIO().execute { localDataSource.insertPriceListPostPaid(response) }
+            }
+
+            override fun shouldFetch(data: List<PostpaidProduct>?): Boolean = data.isNullOrEmpty()
+
+        }.asFlow()
 }

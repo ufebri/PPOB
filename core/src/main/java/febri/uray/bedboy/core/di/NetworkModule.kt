@@ -5,7 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import febri.uray.bedboy.core.BuildConfig
-import febri.uray.bedboy.core.data.source.remote.network.ApiService
+import febri.uray.bedboy.core.data.source.remote.network.ApiServicePostpaid
+import febri.uray.bedboy.core.data.source.remote.network.ApiServicePrepaid
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,20 +19,25 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
-            .build()
+        return OkHttpClient.Builder().addInterceptor(
+            HttpLoggingInterceptor().setLevel(
+                if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                else HttpLoggingInterceptor.Level.NONE
+            )
+        ).connectTimeout(120, TimeUnit.SECONDS).readTimeout(120, TimeUnit.SECONDS).build()
     }
 
     @Provides
-    fun provideApiService(client: OkHttpClient): ApiService {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASEURL_PREPAID)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-        return retrofit.create(ApiService::class.java)
+    fun provideApiServicePrepaid(client: OkHttpClient): ApiServicePrepaid {
+        val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASEURL_PREPAID)
+            .addConverterFactory(GsonConverterFactory.create()).client(client).build()
+        return retrofit.create(ApiServicePrepaid::class.java)
+    }
+
+    @Provides
+    fun provideApiServicePostpaid(client: OkHttpClient): ApiServicePostpaid {
+        val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASEURL_POSTPAID)
+            .addConverterFactory(GsonConverterFactory.create()).client(client).build()
+        return retrofit.create(ApiServicePostpaid::class.java)
     }
 }

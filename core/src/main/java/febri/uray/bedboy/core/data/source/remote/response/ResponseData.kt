@@ -5,6 +5,7 @@ import febri.uray.bedboy.core.domain.model.ProductList
 
 data class ResponseData(
 
+    /* Prepaid */
     //This is for price list
     @SerializedName("pricelist") var pricelist: List<ProductList> = arrayListOf(),
 
@@ -22,5 +23,8 @@ data class ResponseData(
     @SerializedName("customer_id") var customerId: String? = null,
     @SerializedName("price") var price: Int? = null,
     @SerializedName("tr_id") var trId: Int? = null,
-    @SerializedName("sn") var sn: String? = null
+    @SerializedName("sn") var sn: String? = null,
+
+    /* Postpaid */
+    @SerializedName("pasca") var pascaList: List<ResponsePostPaid> = arrayListOf()
 )
