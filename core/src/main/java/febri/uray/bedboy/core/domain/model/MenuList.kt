@@ -1,7 +1,6 @@
 package febri.uray.bedboy.core.domain.model
 
 import android.os.Parcelable
-import android.text.InputType
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
