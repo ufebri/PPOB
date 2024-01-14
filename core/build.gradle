@@ -29,6 +29,8 @@ android {
             buildConfigField("String", "APIKEY", apikeyProperties['APIKEY_PROD'])
             buildConfigField("String", "BASEURL_PREPAID", apikeyProperties['BASE_URL_PROD_PREPAID'])
             buildConfigField("String", "BASEURL_POSTPAID", apikeyProperties['BASE_URL_PROD_POSTPAID'])
+            resValue("string", "admob_app_id", apikeyProperties['APP_ADS_PROD'])
+            resValue("string", "admob_banner_id", apikeyProperties['APP_BANNER_PROD'])
         }
 
         debug {
@@ -36,6 +38,8 @@ android {
             buildConfigField("String", "APIKEY", apikeyProperties['APIKEY_DEV'])
             buildConfigField("String", "BASEURL_PREPAID", apikeyProperties['BASE_URL_DEV_PREPAID'])
             buildConfigField("String", "BASEURL_POSTPAID", apikeyProperties['BASE_URL_DEV_POSTPAID'])
+            resValue("string", "admob_app_id", apikeyProperties['APP_ADS_DEV'])
+            resValue("string", "admob_banner_id", apikeyProperties['APP_BANNER_DEV'])
         }
 
     }

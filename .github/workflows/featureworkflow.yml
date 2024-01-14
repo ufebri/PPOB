@@ -12,6 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
       - name: Load Google Service file
         env:
           DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
@@ -24,7 +28,11 @@ jobs:
           echo "BASE_URL_PROD_PREPAID=${{ secrets.BASE_URL_PROD_PREPAID }}" >> $GITHUB_WORKSPACE/config.properties
           echo "APIKEY_PROD=${{ secrets.APIKEY_PROD }}" >> $GITHUB_WORKSPACE/config.properties
           echo "BASE_URL_DEV_POSTPAID=${{ secrets.BASE_URL_DEV_POSTPAID }}" >> $GITHUB_WORKSPACE/config.properties
-          echo "BASE_URL_PROD_POSTPAID=${{ secrets.BASE_URL_PROD_POSTPAID }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "APP_ADS_DEV=${{ secrets.APP_ADS_DEV }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "APP_BANNER_DEV=${{ secrets.APP_BANNER_DEV }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "APP_ADS_PROD=${{ secrets.APP_ADS_PROD }}" >> $GITHUB_WORKSPACE/config.properties
+          echo "APP_BANNER_PROD=${{ secrets.APP_BANNER_PROD }}" >> $GITHUB_WORKSPACE/config.properties
+          
 
       - name: Clean Test
         run: ./gradlew clean test
@@ -33,6 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
       - uses: actions/cache@v2
         with:
