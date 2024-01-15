@@ -21,13 +21,20 @@ class ProductViewHolder(private val binding: ItemProductBinding) :
             }
 
             tvTitle.text = mData.productNominal
-            tvPrice.text = String.format(
-                "%s / %s Hari",
-                TextHelper.formatRupiah(mData.productPrice.toString()),
-                mData.activePeriod
-            )
+            tvPrice.text = getTextInfo(mData)
 
             root.setOnClickListener { onClick(mData) }
+        }
+    }
+
+
+    private fun getTextInfo(mData: ProductList): String {
+        return when (mData.activePeriod) {
+            "0" -> String.format("%s", TextHelper.formatRupiah(mData.productPrice.toString()))
+            else -> String.format("%s / %s Days", TextHelper.formatRupiah(mData.productPrice.toString()), mData.activePeriod)
+        }.also {
+            if (it.contains("INFO"))
+                String.format("%s", TextHelper.formatRupiah(mData.productPrice.toString()))
         }
     }
 }

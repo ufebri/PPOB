@@ -10,14 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v1
         with:
-            distribution: 'temurin'
-            java-version: 17
-            cache: 'gradle'
+          java-version: 17
 
       - name: Grand execute permissions to gradlew
         run: chmod +x gradlew
@@ -39,7 +37,7 @@ jobs:
           echo "APP_BANNER_DEV=${{ secrets.APP_BANNER_DEV }}" >> $GITHUB_WORKSPACE/config.properties
           echo "APP_ADS_PROD=${{ secrets.APP_ADS_PROD }}" >> $GITHUB_WORKSPACE/config.properties
           echo "APP_BANNER_PROD=${{ secrets.APP_BANNER_PROD }}" >> $GITHUB_WORKSPACE/config.properties
-          
+
 
       - name: Clean Test
         run: ./gradlew clean test
@@ -47,13 +45,11 @@ jobs:
   Continues-Delivery-Jobs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v1
         with:
-            distribution: 'temurin'
-            java-version: 17
-            cache: 'gradle'
+          java-version: 17
 
       - uses: actions/cache@v2
         with:
