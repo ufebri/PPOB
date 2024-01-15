@@ -4,6 +4,4 @@
     <string name="hint_api_key">API Key</string>
     <string name="text_username">Username</string>
     <string name="title_total_saldo">Total Saldo</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="text_operator">Provider</string>
 </resources>

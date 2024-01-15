@@ -9,7 +9,6 @@ import androidx.room.PrimaryKey
 data class PriceListEntity(
 
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "product_code")
     var productCode: String,
 
