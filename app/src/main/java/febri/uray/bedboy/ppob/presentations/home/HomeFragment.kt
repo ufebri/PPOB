@@ -21,6 +21,7 @@ import febri.uray.bedboy.core.domain.model.MenuList
 import febri.uray.bedboy.core.security.MD5Helper
 import febri.uray.bedboy.core.util.SharedPreferencesHelper
 import febri.uray.bedboy.core.util.TextHelper
+import febri.uray.bedboy.ppob.R
 import febri.uray.bedboy.ppob.databinding.ContentHomeFragmentBinding
 import febri.uray.bedboy.uicomponent.ads.AdsHelper
 import febri.uray.bedboy.uicomponent.chiplayout.addChip
@@ -49,6 +50,7 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
 
+            //Init sharedprefences
             sharedPreferencesHelper = SharedPreferencesHelper(requireActivity())
             val username = sharedPreferencesHelper.getString("username")
             val key = sharedPreferencesHelper.getString("apikey")
@@ -65,6 +67,9 @@ class HomeFragment : Fragment() {
                 addProperty("username", username)
                 addProperty("sign", sign)
             }
+
+            //init title name
+            activity?.title = getString(R.string.app_name)
 
             binding?.apply {
                 homeViewModel.balance(request).observe(viewLifecycleOwner) { mData ->

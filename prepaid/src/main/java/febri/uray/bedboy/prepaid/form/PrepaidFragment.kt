@@ -25,7 +25,6 @@ class PrepaidFragment : Fragment() {
     private val viewModel: PrepaidViewModel by viewModels()
     private val args: PrepaidFragmentArgs by navArgs()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,8 +40,12 @@ class PrepaidFragment : Fragment() {
         if (activity != null) {
             binding?.apply {
 
+                //Init Passing Data
                 val mData = args.listProduct
                 val mMenu = args.menuName
+
+                //Set Title
+                activity?.title = mMenu.nameMenu
 
                 etProduct.setAdapter(
                     ArrayAdapter(

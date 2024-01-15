@@ -39,6 +39,7 @@ class TopUpFragment : Fragment() {
 
         if (activity != null) {
 
+            //init passing data
             val bundleProductCode = args.prodCode
             val bundleCustomerID = args.customerID
 
