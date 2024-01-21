@@ -41,9 +41,7 @@ class HomeFragment : Fragment() {
     private lateinit var mAds: AdView
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = ContentHomeFragmentBinding.inflate(inflater, container, false)
         return binding?.root
@@ -61,9 +59,7 @@ class HomeFragment : Fragment() {
 
             val sign = MD5Helper.calculateMD5(
                 String.format(
-                    "%s%sbl",
-                    username,
-                    key
+                    "%s%sbl", username, key
                 )
             )
 
@@ -80,8 +76,7 @@ class HomeFragment : Fragment() {
                     when (mData) {
                         is Resource.Loading -> showBalance(false)
                         is Resource.Success -> {
-                            tvValueBalance.text =
-                                TextHelper.formatRupiah(mData.data?.balance ?: "")
+                            tvValueBalance.text = TextHelper.formatRupiah(mData.data?.balance ?: "")
                             showBalance(true)
                         }
 
@@ -110,14 +105,34 @@ class HomeFragment : Fragment() {
                 }
 
                 homeViewModel.categoryMenus.forEach {
-                    chipMenu.addChip(requireActivity(), it, true)
+                    chipMenu.addChip(
+                        requireActivity(), it, it.contains("topup", true)
+                    )
                 }
 
                 chipMenu.setOnCheckedChangeListener { group, checkedId ->
                     val mView = group?.findViewById<Chip>(checkedId)
                     val mTitle = mView?.text.toString()
-                    mView?.setOnClickListener {
-                        showMenuByCategory(mTitle)
+                    mView?.apply {
+                        setOnClickListener { showMenuByCategory(mTitle) }
+
+                        // Reset the background color for all chips
+                        for (i in 0 until group.childCount) {
+                            val child = group.getChildAt(i) as Chip
+                            if (child.id == checkedId) {
+                                // Set the background color for the selected chip
+                                child.chipBackgroundColor = ContextCompat.getColorStateList(
+                                    context, febri.uray.bedboy.uicomponent.R.color.colorPrimary
+                                )
+                                child.setTextColor(Color.WHITE)
+                            } else {
+                                // Reset the background color for other chips
+                                child.chipBackgroundColor = ContextCompat.getColorStateList(
+                                    context, febri.uray.bedboy.uicomponent.R.color.colorGrey
+                                )
+                                child.setTextColor(Color.BLACK)
+                            }
+                        }
                     }
                 }
 
@@ -168,10 +183,7 @@ class HomeFragment : Fragment() {
             homeViewModel.menuCategoryList(menuCategory).let { menu ->
                 rvMenu.apply {
                     layoutManager = GridLayoutManager(
-                        requireActivity(),
-                        4,
-                        GridLayoutManager.VERTICAL,
-                        false
+                        requireActivity(), 4, GridLayoutManager.VERTICAL, false
                     )
 
                     val menuAdapter = MenuAdapter { goToMenu(it) }
@@ -191,10 +203,7 @@ class HomeFragment : Fragment() {
             homeViewModel.menuSearchList(searchMenu).let { menu ->
                 rvMenu.apply {
                     layoutManager = GridLayoutManager(
-                        requireActivity(),
-                        4,
-                        GridLayoutManager.VERTICAL,
-                        false
+                        requireActivity(), 4, GridLayoutManager.VERTICAL, false
                     )
 
                     val menuAdapter = MenuAdapter { goToMenu(it) }
@@ -217,11 +226,9 @@ class HomeFragment : Fragment() {
 
     private fun goToMenu(menuList: MenuList) {
         homeViewModel.productCategoryList(menuList.idMenu).observe(viewLifecycleOwner) {
-            val action =
-                HomeFragmentDirections.actionHomeToPrepaidFragment(
-                    it.toTypedArray(),
-                    menuList
-                )
+            val action = HomeFragmentDirections.actionHomeToPrepaidFragment(
+                it.toTypedArray(), menuList
+            )
             findNavController().navigate(action)
         }
     }
