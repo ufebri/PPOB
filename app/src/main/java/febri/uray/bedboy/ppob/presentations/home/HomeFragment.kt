@@ -1,11 +1,13 @@
 package febri.uray.bedboy.ppob.presentations.home
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -113,11 +115,23 @@ class HomeFragment : Fragment() {
                     val mView = group?.findViewById<Chip>(checkedId)
                     val mTitle = mView?.text.toString()
                     mView?.setOnClickListener {
-                        showMenu(mTitle)
+                        showMenuByCategory(mTitle)
                     }
                 }
 
-                showMenu(homeViewModel.categoryMenus[0])
+                showMenuByCategory(homeViewModel.categoryMenus[0])
+
+                //Set Search Menu
+                etSearchMenu.doAfterTextChanged { text: Editable? ->
+                    if (!text.isNullOrEmpty() && text.length > 1) {
+                        //Doing Search
+                        showMenuBySearch(text.toString())
+                    } else {
+                        //Back to First Menu
+                        showMenuByCategory(homeViewModel.categoryMenus[0])
+                    }
+                }
+
 
                 // Initialize the Mobile Ads SDK.
                 MobileAds.initialize(requireActivity()) {}
@@ -147,9 +161,9 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun showMenu(menuName: String) {
+    private fun showMenuByCategory(menuCategory: String) {
         binding?.apply {
-            homeViewModel.menuList(menuName).let { menu ->
+            homeViewModel.menuCategoryList(menuCategory).let { menu ->
                 rvMenu.apply {
                     layoutManager = GridLayoutManager(
                         requireActivity(),
@@ -162,7 +176,30 @@ class HomeFragment : Fragment() {
                     adapter = menuAdapter
                     menuAdapter.submitList(menu)
                 }
-                tvSelectedTitle.text = menuName
+                tvSelectedTitle.apply {
+                    text = menuCategory
+                    isVisible = true
+                }
+            }
+        }
+    }
+
+    private fun showMenuBySearch(searchMenu: String) {
+        binding?.apply {
+            homeViewModel.menuSearchList(searchMenu).let { menu ->
+                rvMenu.apply {
+                    layoutManager = GridLayoutManager(
+                        requireActivity(),
+                        4,
+                        GridLayoutManager.VERTICAL,
+                        false
+                    )
+
+                    val menuAdapter = MenuAdapter { goToMenu(it) }
+                    adapter = menuAdapter
+                    menuAdapter.submitList(menu)
+                }
+                tvSelectedTitle.isGone = true
             }
         }
     }

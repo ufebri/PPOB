@@ -18,8 +18,13 @@ class HomeViewModel @Inject constructor(private val useCase: AppUseCase) : ViewM
 
     val priceList = useCase.getPriceList().asLiveData()
 
-    fun menuList(categoryMenu: String) =
+    //Show Menu by Category
+    fun menuCategoryList(categoryMenu: String) =
         generateMenuList.filter { it.categoryMenu == categoryMenu }.ifEmpty { generateMenuList }
+
+    //Show Menu by Search
+    fun menuSearchList(searchMenu: String) =
+        generateMenuList.filter { it.nameMenu.contains(searchMenu, ignoreCase = true) }
 
     val categoryMenus = categoryMenuList
 

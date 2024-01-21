@@ -45,7 +45,11 @@ class PrepaidFragment : Fragment() {
                 val mMenu = args.menuName
 
                 //Set Title
-                activity?.title = mMenu.nameMenu
+                activity?.apply {
+                    title = mMenu.nameMenu
+                    actionBar?.setDisplayHomeAsUpEnabled(true)
+                    actionBar?.setDisplayShowHomeEnabled(true)
+                }
 
                 etProduct.setAdapter(
                     ArrayAdapter(
@@ -94,6 +98,8 @@ class PrepaidFragment : Fragment() {
             }
         }
     }
+
+
 
 
     private fun goToPayment(mSelectedItemCode: String, mCustomerNumber: String) {
