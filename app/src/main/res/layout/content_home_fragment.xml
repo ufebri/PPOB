@@ -120,6 +120,7 @@
                     android:inputType="text"
                     android:maxLength="30"
                     android:padding="@dimen/dimens_16dp"
+                    android:textColor="@color/colorPrimary"
                     tools:text="@tools:sample/lorem/random" />
 
 
