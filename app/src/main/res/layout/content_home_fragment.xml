@@ -7,160 +7,170 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <View
-                android:id="@+id/view_divider"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_viewdivider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimens_16dp"
-                app:cardCornerRadius="@dimen/dimens_8dp"
-                app:cardElevation="@dimen/dimens_16dp"
-                app:layout_constraintBottom_toBottomOf="@id/view_divider"
-                app:layout_constraintEnd_toEndOf="@id/view_divider"
-                app:layout_constraintStart_toStartOf="@id/view_divider"
-                app:layout_constraintTop_toTopOf="@id/view_divider">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <View
+                    android:id="@+id/view_divider"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="100dp"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_titleBalance"
-                        style="@style/TextAppearance.AppCompat.Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dimens_16dp"
-                        android:text="@string/title_total_saldo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ProgressBar
-                        android:id="@+id/pb_balance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimens_20dp"
-                        android:layout_marginHorizontal="@dimen/dimens_16dp"
-                        android:layout_marginBottom="@dimen/dimens_16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_titleBalance"
-                        tools:ignore="MissingConstraints"
-                        tools:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tv_valueBalance"
-                        style="@style/TextAppearance.AppCompat.Subhead"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dimens_16dp"
-                        android:layout_marginBottom="@dimen/dimens_16dp"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_titleBalance"
-                        tools:text="Rp 3.500.000 ,-"
-                        tools:visibility="visible" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <View
-                android:id="@+id/view_divider2"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:alpha="0.1"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="@id/view_divider"
-                app:layout_constraintStart_toStartOf="@id/view_divider"
-                app:layout_constraintTop_toBottomOf="@id/view_divider" />
-
-
-            <febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom
-                android:id="@+id/til_search_menu"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimens_16dp"
-                ads:layout_constraintEnd_toEndOf="@id/view_divider2"
-                ads:layout_constraintStart_toStartOf="@id/view_divider2"
-                ads:layout_constraintTop_toBottomOf="@id/view_divider2"
-                ads:startIconDrawable="@drawable/baseline_search_24"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/colorPrimaryDark"
-                app:helperTextEnabled="true"
-                app:hintEnabled="false">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_search_menu"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_viewdivider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/text_input_white_background_unfocused_shape"
-                    android:hint="@string/hint_for_search"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLength="30"
-                    android:padding="@dimen/dimens_16dp"
-                    android:textColor="@color/colorPrimary"
-                    tools:text="@tools:sample/lorem/random" />
+                    android:layout_margin="@dimen/dimens_16dp"
+                    app:cardCornerRadius="@dimen/dimens_8dp"
+                    app:cardElevation="@dimen/dimens_16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/view_divider"
+                    app:layout_constraintEnd_toEndOf="@id/view_divider"
+                    app:layout_constraintStart_toStartOf="@id/view_divider"
+                    app:layout_constraintTop_toTopOf="@id/view_divider">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_titleBalance"
+                            style="@style/TextAppearance.AppCompat.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimens_16dp"
+                            android:text="@string/title_total_saldo"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ProgressBar
+                            android:id="@+id/pb_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimens_20dp"
+                            android:layout_marginHorizontal="@dimen/dimens_16dp"
+                            android:layout_marginBottom="@dimen/dimens_16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_titleBalance"
+                            tools:ignore="MissingConstraints"
+                            tools:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_valueBalance"
+                            style="@style/TextAppearance.AppCompat.Subhead"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dimens_16dp"
+                            android:layout_marginBottom="@dimen/dimens_16dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_titleBalance"
+                            tools:text="Rp 3.500.000 ,-"
+                            tools:visibility="visible" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom>
+                </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimens_16dp"
-                app:layout_constraintEnd_toEndOf="@id/til_search_menu"
-                app:layout_constraintStart_toStartOf="@id/til_search_menu"
-                app:layout_constraintTop_toBottomOf="@id/til_search_menu"
-                app:singleLine="false"
-                app:singleSelection="true" />
-
-            <TextView
-                android:id="@+id/tv_selected_title"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimens_16dp"
-                app:layout_constraintEnd_toEndOf="@id/chip_menu"
-                app:layout_constraintStart_toStartOf="@id/chip_menu"
-                app:layout_constraintTop_toBottomOf="@id/chip_menu"
-                tools:text="Topup" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimens_16dp"
-                android:overScrollMode="never"
-                app:layout_constraintEnd_toEndOf="@id/tv_selected_title"
-                app:layout_constraintStart_toStartOf="@id/tv_selected_title"
-                app:layout_constraintTop_toBottomOf="@id/tv_selected_title" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:id="@+id/view_divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:alpha="0.1"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintEnd_toEndOf="@id/view_divider"
+                    app:layout_constraintStart_toStartOf="@id/view_divider"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider" />
 
 
-    </androidx.core.widget.NestedScrollView>
+                <febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom
+                    android:id="@+id/til_search_menu"
+                    style="@style/TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimens_16dp"
+                    ads:layout_constraintEnd_toEndOf="@id/view_divider2"
+                    ads:layout_constraintStart_toStartOf="@id/view_divider2"
+                    ads:layout_constraintTop_toBottomOf="@id/view_divider2"
+                    ads:startIconDrawable="@drawable/baseline_search_24"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/colorPrimaryDark"
+                    app:helperTextEnabled="true"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_search_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/text_input_white_background_unfocused_shape"
+                        android:hint="@string/hint_for_search"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:maxLength="30"
+                        android:padding="@dimen/dimens_16dp"
+                        android:textColor="@color/colorPrimary"
+                        tools:text="@tools:sample/lorem/random" />
+
+
+                </febri.uray.bedboy.uicomponent.inputlayout.TextInputLayoutCustom>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimens_16dp"
+                    app:layout_constraintEnd_toEndOf="@id/til_search_menu"
+                    app:layout_constraintStart_toStartOf="@id/til_search_menu"
+                    app:layout_constraintTop_toBottomOf="@id/til_search_menu"
+                    app:singleLine="false"
+                    app:singleSelection="true" />
+
+                <TextView
+                    android:id="@+id/tv_selected_title"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimens_16dp"
+                    app:layout_constraintEnd_toEndOf="@id/chip_menu"
+                    app:layout_constraintStart_toStartOf="@id/chip_menu"
+                    app:layout_constraintTop_toBottomOf="@id/chip_menu"
+                    tools:text="Topup" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimens_16dp"
+                    android:overScrollMode="never"
+                    app:layout_constraintEnd_toEndOf="@id/tv_selected_title"
+                    app:layout_constraintStart_toStartOf="@id/tv_selected_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_selected_title" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <FrameLayout
         android:id="@+id/adView"

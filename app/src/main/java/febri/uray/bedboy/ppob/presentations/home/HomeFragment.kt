@@ -52,41 +52,12 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
 
-            //Init sharedprefences
-            sharedPreferencesHelper = SharedPreferencesHelper(requireActivity())
-            val username = sharedPreferencesHelper.getString("username")
-            val key = sharedPreferencesHelper.getString("apikey")
-
-            val sign = MD5Helper.calculateMD5(
-                String.format(
-                    "%s%sbl", username, key
-                )
-            )
-
-            val request: JsonObject = JsonObject().apply {
-                addProperty("username", username)
-                addProperty("sign", sign)
-            }
-
             //init title name
             activity?.title = getString(R.string.app_name)
 
             binding?.apply {
-                homeViewModel.balance(request).observe(viewLifecycleOwner) { mData ->
-                    when (mData) {
-                        is Resource.Loading -> showBalance(false)
-                        is Resource.Success -> {
-                            tvValueBalance.text = TextHelper.formatRupiah(mData.data?.balance ?: "")
-                            showBalance(true)
-                        }
-
-                        is Resource.Error -> {
-                            tvValueBalance.text =
-                                String.format("Something error: %s", mData.message)
-                            showBalance(true)
-                        }
-                    }
-                }
+                //load balance
+                loadBalance()
 
                 homeViewModel.priceList.observe(viewLifecycleOwner) { mData ->
                     when (mData) {
@@ -158,6 +129,47 @@ class HomeFragment : Fragment() {
                     if (!initialLayoutComplete) {
                         initialLayoutComplete = true
                         loadBanner()
+                    }
+                }
+
+                srlHome.setOnRefreshListener {
+                    loadBalance()
+                    srlHome.isRefreshing = false
+                }
+            }
+        }
+    }
+
+    private fun loadBalance() {
+        //Init sharedprefences
+        sharedPreferencesHelper = SharedPreferencesHelper(requireActivity())
+        val username = sharedPreferencesHelper.getString("username")
+        val key = sharedPreferencesHelper.getString("apikey")
+
+        val sign = MD5Helper.calculateMD5(
+            String.format(
+                "%s%sbl", username, key
+            )
+        )
+
+        val request: JsonObject = JsonObject().apply {
+            addProperty("username", username)
+            addProperty("sign", sign)
+        }
+
+        binding?.apply {
+            homeViewModel.balance(request).observe(viewLifecycleOwner) { mData ->
+                when (mData) {
+                    is Resource.Loading -> showBalance(false)
+                    is Resource.Success -> {
+                        tvValueBalance.text = TextHelper.formatRupiah(mData.data?.balance ?: "")
+                        showBalance(true)
+                    }
+
+                    is Resource.Error -> {
+                        tvValueBalance.text =
+                            String.format("Something error: %s", mData.message)
+                        showBalance(true)
                     }
                 }
             }
