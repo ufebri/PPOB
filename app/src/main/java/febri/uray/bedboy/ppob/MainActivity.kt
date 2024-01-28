@@ -1,9 +1,9 @@
 package febri.uray.bedboy.ppob
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        if (!sharedPreferencesHelper.getString("username").isNullOrEmpty() &&
-            !sharedPreferencesHelper.getString("apikey").isNullOrEmpty()
+        if (!sharedPreferencesHelper.getString("username")
+                .isNullOrEmpty() && !sharedPreferencesHelper.getString("apikey").isNullOrEmpty()
         ) {
-           navController.navigate(R.id.navigation_home)
+            navController.navigate(R.id.navigation_home)
 
             val appBarConfiguration = AppBarConfiguration(
                 setOf(
@@ -42,12 +42,27 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
+
             binding.navViewHome.apply {
                 setupWithNavController(navController)
-                isVisible = true
+
+                navController.addOnDestinationChangedListener { _, destination, _ ->
+                    if (isNeedBottomNav(destination.id)) {
+                        visibility = View.VISIBLE
+                    } else {
+                        visibility = View.GONE
+                    }
+                }
             }
+
         } else {
             navController.navigate(R.id.authmodeFragment)
         }
+    }
+
+    private fun isNeedBottomNav(navID: Int): Boolean {
+        return listOf(
+            R.id.navigation_home, R.id.navigation_profile, R.id.navigation_history
+        ).contains(navID)
     }
 }

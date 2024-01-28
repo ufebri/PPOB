@@ -13,6 +13,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
@@ -56,6 +57,7 @@ class HomeFragment : Fragment() {
             activity?.title = getString(R.string.app_name)
 
             binding?.apply {
+
                 //load balance
                 loadBalance()
 
