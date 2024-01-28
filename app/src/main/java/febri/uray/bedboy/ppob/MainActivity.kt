@@ -3,7 +3,11 @@ package febri.uray.bedboy.ppob
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import febri.uray.bedboy.core.util.SharedPreferencesHelper
 import febri.uray.bedboy.ppob.databinding.ActivityMainBinding
@@ -30,7 +34,18 @@ class MainActivity : AppCompatActivity() {
         if (!sharedPreferencesHelper.getString("username").isNullOrEmpty() &&
             !sharedPreferencesHelper.getString("apikey").isNullOrEmpty()
         ) {
-            navController.navigate(R.id.homeFragment)
+           navController.navigate(R.id.navigation_home)
+
+            val appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.navigation_home, R.id.navigation_history, R.id.navigation_profile
+                )
+            )
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            binding.navViewHome.apply {
+                setupWithNavController(navController)
+                isVisible = true
+            }
         } else {
             navController.navigate(R.id.authmodeFragment)
         }

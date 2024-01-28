@@ -5,4 +5,7 @@
     <string name="text_username">Username</string>
     <string name="title_total_saldo">Total Saldo</string>
     <string name="hint_for_search">Any services you looking for?</string>
+    <string name="dashboard">Home</string>
+    <string name="receipt">Receipt</string>
+    <string name="profile">Profile</string>
 </resources>
