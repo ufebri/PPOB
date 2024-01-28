@@ -69,3 +69,6 @@
 ##---------------Begin: proguard configuration for RxJava ----------
 # Uncomment if you use RxJava
 #-dontwarn java.util.concurrent.Flow*
+
+-keepattributes SourceFile,LineNumberTable        # Keep file names and line numbers.
+-keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.

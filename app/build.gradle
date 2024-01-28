@@ -6,6 +6,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.firebase.crashlytics'
 }
 
 apply from: '../shared_dependencies.gradle'
@@ -29,6 +30,13 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled false
+            firebaseCrashlytics {
+                mappingFileUploadEnabled false
+            }
+        }
+
     }
 
     compileOptions {
@@ -55,6 +63,7 @@ dependencies {
     //firebase
     implementation platform('com.google.firebase:firebase-bom:32.7.0')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     //splashscreen
     implementation "androidx.core:core-splashscreen:1.0.0"
